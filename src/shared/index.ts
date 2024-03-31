@@ -1,6 +1,6 @@
 import { AppRoutes, FetchRoutes } from './routes/routes';
-import { TCamera } from './types/app-types';
-import { BACKEND_URL, TIME_OUT } from './constants/constants';
+import { TCamera, FetchStatus } from './types/app-types';
+import { BACKEND_URL, TIME_OUT, ApiActions, stars } from './constants/constants';
 import { createAPI } from './api/api';
 
 export {
@@ -9,6 +9,9 @@ export {
   BACKEND_URL,
   TIME_OUT,
   createAPI,
+  FetchStatus,
+  ApiActions,
+  stars,
 };
 
 export type {TCamera};

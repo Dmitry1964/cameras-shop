@@ -1,16 +1,15 @@
+import { TCamera } from 'src/shared';
 import { ProductCard } from 'src/widgets/product-card';
 
-const ProductsList = (): JSX.Element => (
-  <div className="cards catalog__cards">
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
+type ProductsListProps = {
+  camerasList: TCamera[];
+}
 
+const ProductsList = ({camerasList} : ProductsListProps): JSX.Element => (
+  <div className="cards catalog__cards">
+    {camerasList.map((camera) => (
+      <ProductCard key={camera.id} product = {camera}/>
+    ))}
   </div>
 );
 

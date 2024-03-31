@@ -33,3 +33,10 @@ export enum ProductLevel {
   Professional = 'Профессиональный',
 }
 
+export enum FetchStatus {
+  Idle = 'idle',
+  Pending = 'loading',
+  Fulfilled = 'succes',
+  Rejected = 'error'
+}
+
