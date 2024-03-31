@@ -9,6 +9,7 @@ const App = (): JSX.Element => {
     {
       path: AppRoutes.Catalog,
       element: <Layout/>,
+      errorElement: <div>error</div>,
       children: [
         {
           path: AppRoutes.Catalog,
