@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchCamerasList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
 import { FetchStatus } from 'src/shared';
@@ -9,11 +9,14 @@ import { CatalogFilter } from 'src/widgets/catalog-filter';
 import { CatalogSort } from 'src/widgets/catalog-sort';
 import { Pagination } from 'src/widgets/pagination';
 import { ProductsList } from 'src/widgets/products-list';
+import { TOTAL_CARD } from 'src/shared';
 
 const Catalog = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const fetchListStatus = useAppSelector((state) => state.productsList.status);
   const camerasList = useAppSelector((state) => state.productsList.cameras);
+
+  const [paginationButtonz, setPaginationButtons] = useState([1,2,3])
 
   useEffect(() => {
     dispatch(fetchCamerasList());
@@ -36,7 +39,7 @@ const Catalog = (): JSX.Element => {
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
                 {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
-                <Pagination />
+                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} />}
               </div>
             </div>
           </div>

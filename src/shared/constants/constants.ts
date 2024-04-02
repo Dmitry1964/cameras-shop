@@ -6,3 +6,7 @@ export enum ApiActions {
 }
 
 export const stars = [1, 2, 3, 4, 5];
+
+export const TOTAL_CARD = 9;
+export const DEFAULT_START = 1;
+export const DEFAULT_END = 3;
