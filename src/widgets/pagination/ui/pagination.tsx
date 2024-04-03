@@ -11,9 +11,10 @@ type PaginationButton = {
 
 type PaginationProps = {
   length: number;
+  getCurrentCameras: (pageNumber: number) => void;
 }
 
-const Pagination = ({ length }: PaginationProps): JSX.Element => {
+const Pagination = ({ length, getCurrentCameras }: PaginationProps): JSX.Element => {
   const buttons = getArrNumbers(Math.ceil(length / TOTAL_CARD));
   const [paginationButtons, setPaginationButton] = useState<PaginationButton>({ activeButton: DEFAULT_START, start: DEFAULT_START, end: DEFAULT_END });
 
@@ -24,18 +25,21 @@ const Pagination = ({ length }: PaginationProps): JSX.Element => {
     const { textContent } = evt.target as HTMLElement;
     const pageNumber = textContent ? parseInt(textContent, 10) : 1;
     setPaginationButton({ ...paginationButtons, activeButton: pageNumber });
+    getCurrentCameras(pageNumber);
   };
 
   const onNextButtonClick = (evt: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
     evt.preventDefault();
     const index = currentButtons.indexOf(paginationButtons.activeButton);
     setPaginationButton({ ...paginationButtons, activeButton: paginationButtons.activeButton + DEFAULT_END - index, start: paginationButtons.start + DEFAULT_END, end: paginationButtons.end + DEFAULT_END });
+    getCurrentCameras(paginationButtons.activeButton + DEFAULT_END - index);
   };
 
   const onPrevButtonClick = (evt:MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
     evt.preventDefault();
     const index = currentButtons.indexOf(paginationButtons.activeButton);
     setPaginationButton({ ...paginationButtons, activeButton: paginationButtons.activeButton - index - 1, start: paginationButtons.start - DEFAULT_END, end: paginationButtons.end - DEFAULT_END });
+    getCurrentCameras(paginationButtons.activeButton - index - 1);
   };
 
   return (

@@ -11,12 +11,22 @@ import { Pagination } from 'src/widgets/pagination';
 import { ProductsList } from 'src/widgets/products-list';
 import { TOTAL_CARD } from 'src/shared';
 
+type CurrentList = {
+  start: number;
+  end: number;
+}
+
 const Catalog = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const fetchListStatus = useAppSelector((state) => state.productsList.status);
   const camerasList = useAppSelector((state) => state.productsList.cameras);
 
-  const [paginationButtonz, setPaginationButtons] = useState([1,2,3])
+  const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});
+
+
+  const getCurrentCameras = (pageNumber: number) => {
+    setCurrentList({...currentList, start: TOTAL_CARD * (pageNumber - 1), end: TOTAL_CARD * pageNumber});
+  };
 
   useEffect(() => {
     dispatch(fetchCamerasList());
@@ -37,9 +47,9 @@ const Catalog = (): JSX.Element => {
               <div className="catalog__content">
                 <CatalogSort />
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
-                {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList}/>}
+                {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList.slice(currentList.start, currentList.end)}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
-                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} />}
+                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras}/>}
               </div>
             </div>
           </div>
