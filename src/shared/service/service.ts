@@ -6,3 +6,4 @@ export const getArrNumbers = (num : number) => {
   return arr;
 };
 
+export const getIndex = (arr: number[], item: number) : number => arr.indexOf(item);

@@ -10,6 +10,7 @@ import { CatalogSort } from 'src/widgets/catalog-sort';
 import { Pagination } from 'src/widgets/pagination';
 import { ProductsList } from 'src/widgets/products-list';
 import { TOTAL_CARD } from 'src/shared';
+import { useLocation } from 'react-router-dom';
 
 type CurrentList = {
   start: number;
@@ -20,6 +21,7 @@ const Catalog = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const fetchListStatus = useAppSelector((state) => state.productsList.status);
   const camerasList = useAppSelector((state) => state.productsList.cameras);
+  const {pathname} = useLocation();
 
   const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});
 
@@ -49,7 +51,7 @@ const Catalog = (): JSX.Element => {
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
                 {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList.slice(currentList.start, currentList.end)}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
-                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras}/>}
+                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname}/>}
               </div>
             </div>
           </div>
