@@ -12,3 +12,8 @@ export const fetchPromoList = createAsyncThunk<TPromo[], void, {extra: AxiosInst
   const {data} = await api.get<TPromo[]>(FetchRoutes.Promo);
   return data;
 });
+
+export const fetchCameraData = createAsyncThunk<TCamera, number, {extra: AxiosInstance}>(ApiActions.DataFetchCamera, async(idCamera, {extra: api}) => {
+  const {data} = await api.get <TCamera>(`${FetchRoutes.Camera}/${idCamera}`);
+  return data;
+});

@@ -4,6 +4,7 @@ export const TIME_OUT = 5000;
 export enum ApiActions {
   DataFetchCamerasList = 'data/fetchCamerasList',
   DataFetchPromoList = 'data/fetchPromoList',
+  DataFetchCamera = 'data/fetchCamera',
 }
 
 export const stars = [1, 2, 3, 4, 5];

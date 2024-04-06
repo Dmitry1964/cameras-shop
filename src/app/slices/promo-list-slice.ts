@@ -11,7 +11,7 @@ export type TPromoListState = {
 const initialState: TPromoListState = {
   promoList: [],
   status: FetchStatus.Idle,
-}
+};
 
 const promoListSlice = createSlice({
   name: 'promoList',

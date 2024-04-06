@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom';
 import { Rating } from 'src/features/rating';
-import { TCamera } from 'src/shared';
+import { AppRoutes, TCamera } from 'src/shared';
 
 type ProductCardProps = {
   product: TCamera;
 }
 
 const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
-  const {previewImgWebp2x, previewImgWebp, previewImg, previewImg2x, name, rating, reviewCount, price} = product;
+  const { previewImgWebp2x, previewImgWebp, previewImg, previewImg2x, name, rating, reviewCount, price } = product;
   return (
     <div className="product-card">
       <div className="product-card__img">
@@ -16,7 +17,7 @@ const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
         </picture>
       </div>
       <div className="product-card__info">
-        <Rating rating = {rating} reviewCount={reviewCount}/>
+        <Rating rating={rating} reviewCount={reviewCount} />
         <p className="product-card__title">{name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{price.toLocaleString('ru-RU')} ₽
         </p>
@@ -24,8 +25,9 @@ const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <a className="btn btn--transparent" href="#">Подробнее
-        </a>
+        <Link className="btn btn--transparent" to={`${AppRoutes.Camera}/${product.id}`}>
+          Подробнее
+        </Link>
       </div>
     </div>
   );

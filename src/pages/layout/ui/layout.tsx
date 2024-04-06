@@ -51,7 +51,6 @@ const Layout = (): JSX.Element => (
       </div>
     </header>
     <Outlet />
-    {/* <Catalog /> */}
     <footer className="footer">
       <div className="container">
         <div className="footer__info">

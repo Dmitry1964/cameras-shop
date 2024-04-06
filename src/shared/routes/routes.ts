@@ -1,12 +1,12 @@
 export enum AppRoutes {
   Catalog = '/',
-  Product = 'product/:cameraId',
+  Camera = 'camera',
   Basket = 'basket',
 }
 
 export enum FetchRoutes {
   Catalog = '/cameras',
-  Product = '/cameras',
+  Camera = '/cameras',
   Similar = '/similar',
   Promo = '/promo',
   Reviews = '/reviews',

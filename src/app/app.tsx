@@ -8,7 +8,7 @@ const App = (): JSX.Element => {
   const router = createBrowserRouter([
     {
       path: AppRoutes.Catalog,
-      element: <Layout/>,
+      element: <Layout />,
       errorElement: <div>error</div>,
       children: [
         {
@@ -16,14 +16,15 @@ const App = (): JSX.Element => {
           element: <Catalog />,
         },
         {
-          path: AppRoutes.Product,
+          path: `${AppRoutes.Camera}/:idCamera`,
           element: <Product />
         }
       ]
     }
-  ])
+  ]);
   return (
-    <RouterProvider router = {router} />
-)};
+    <RouterProvider router={router} />
+  );
+};
 
 export default App;
