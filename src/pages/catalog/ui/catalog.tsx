@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchCamerasList } from 'src/app/actions/api-actions';
+import { fetchCamerasList, fetchPromoList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
 import { FetchStatus } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
@@ -10,7 +10,7 @@ import { CatalogSort } from 'src/widgets/catalog-sort';
 import { Pagination } from 'src/widgets/pagination';
 import { ProductsList } from 'src/widgets/products-list';
 import { TOTAL_CARD } from 'src/shared';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 type CurrentList = {
   start: number;
@@ -21,9 +21,11 @@ const Catalog = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const fetchListStatus = useAppSelector((state) => state.productsList.status);
   const camerasList = useAppSelector((state) => state.productsList.cameras);
+  const promoList = useAppSelector((state) => state.promoList.promoList);
   const {pathname} = useLocation();
 
   const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});
+  const [searchParams] = useSearchParams();
 
 
   const getCurrentCameras = (pageNumber: number) => {
@@ -32,11 +34,18 @@ const Catalog = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(fetchCamerasList());
+    dispatch(fetchPromoList());
   }, [dispatch]);
+
+  const page = searchParams.get('page');
+  const pageNumber = page ? parseInt(page, 10) : 1;
+  useEffect(() => {
+    setCurrentList({...currentList, start: TOTAL_CARD * (pageNumber - 1), end: TOTAL_CARD * pageNumber});
+  }, [pageNumber]);
 
   return (
     <main>
-      <Banner />
+      <Banner promoList = {promoList} />
       <div className="page-content">
         <Breadcrumbs />
         <section className="catalog">
@@ -51,7 +60,7 @@ const Catalog = (): JSX.Element => {
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
                 {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList.slice(currentList.start, currentList.end)}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
-                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname}/>}
+                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname} page={pageNumber}/>}
               </div>
             </div>
           </div>

@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, TCamera } from 'src/shared';
 import { fetchCamerasList } from '../actions/api-actions';
 
-export type TCamerasList = {
+export type TCamerasListState = {
   cameras: TCamera[];
   status: FetchStatus;
 }
 
-export const initialState : TCamerasList = {
+export const initialState : TCamerasListState = {
   cameras: [],
   status: FetchStatus.Idle,
 };

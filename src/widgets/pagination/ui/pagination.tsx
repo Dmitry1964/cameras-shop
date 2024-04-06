@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 import { DEFAULT_END, DEFAULT_START, TOTAL_CARD, getArrNumbers, getIndex } from 'src/shared';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
@@ -14,9 +14,10 @@ type PaginationProps = {
   length: number;
   getCurrentCameras: (pageNumber: number) => void;
   pathname: string;
+  page: number;
 }
 
-const Pagination = ({ length, getCurrentCameras, pathname }: PaginationProps): JSX.Element => {
+const Pagination = ({ length, getCurrentCameras, pathname, page }: PaginationProps): JSX.Element => {
   const buttons = getArrNumbers(Math.ceil(length / TOTAL_CARD));
   const [paginationButtons, setPaginationButton] = useState<PaginationButton>({ activeButton: DEFAULT_START, start: DEFAULT_START, end: DEFAULT_END });
 
@@ -30,18 +31,21 @@ const Pagination = ({ length, getCurrentCameras, pathname }: PaginationProps): J
   };
 
   const onNextButtonClick = () => {
-    // evt.preventDefault();
     const index = currentButtons.indexOf(paginationButtons.activeButton);
     setPaginationButton({ ...paginationButtons, activeButton: paginationButtons.activeButton + DEFAULT_END - index, start: paginationButtons.start + DEFAULT_END, end: paginationButtons.end + DEFAULT_END });
     getCurrentCameras(paginationButtons.activeButton + DEFAULT_END - index);
   };
 
   const onPrevButtonClick = () => {
-    // evt.preventDefault();
     const index = currentButtons.indexOf(paginationButtons.activeButton);
     setPaginationButton({ ...paginationButtons, activeButton: paginationButtons.activeButton - index - 1, start: paginationButtons.start - DEFAULT_END, end: paginationButtons.end - DEFAULT_END });
     getCurrentCameras(paginationButtons.activeButton - index - 1);
   };
+
+
+  useEffect(() => {
+    setPaginationButton({...paginationButtons, activeButton: page});
+  }, []);
 
   return (
     <div className="pagination">

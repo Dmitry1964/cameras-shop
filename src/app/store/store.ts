@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createAPI } from 'src/shared';
 import productsList from 'src/app/slices/product-list-slice';
+import promoList from 'src/app/slices/promo-list-slice';
 
 
 const api = createAPI();
 
 const rootReducer = combineReducers({
   productsList,
+  promoList,
 });
 
 export const store = configureStore({
