@@ -24,6 +24,7 @@ const SimilarList = ({ similarList }: SimilatListProps): JSX.Element => {
             modules={[Navigation]}
             slidesPerView={3}
             spaceBetween={32}
+            slidesPerGroup={3}
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,
@@ -59,10 +60,8 @@ const SimilarList = ({ similarList }: SimilatListProps): JSX.Element => {
               <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
-
         </div>
       </div>
-
     </section>
   );
 };

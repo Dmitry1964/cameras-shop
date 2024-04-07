@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchCameraData, fetchSimilarList } from 'src/app/actions/api-actions';
+import { fetchCameraData, fetchReviewsList, fetchSimilarList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
 import { FetchStatus } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { Breadcrumbs } from 'src/widgets/breadcrumbs/ui';
 import { Camera } from 'src/widgets/camera';
-import SimilarList from 'src/widgets/similar-list/ui/similat-list';
+import { ReviewsList } from 'src/widgets/reviews-list';
+import { SimilarList } from 'src/widgets/similar-list';
 
 const Product = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,8 @@ const Product = (): JSX.Element => {
   const fetchCameraStatus = useAppSelector((state) => state.cameraData.status);
   const similarList = useAppSelector((state) => state.similarList.similarList);
   const fetchSimilarStatus = useAppSelector((state) => state.similarList.status);
+  const reviewsList = useAppSelector((state) => state.reviewsList.reviewsList);
+  const fetchReviewsStatus = useAppSelector((state) => state.reviewsList.status);
   const param = useParams();
 
   const id = param ? parseInt((param.idCamera as string), 10) : 1;
@@ -21,6 +24,7 @@ const Product = (): JSX.Element => {
   useEffect(() => {
     dispatch(fetchCameraData(id));
     dispatch(fetchSimilarList(id));
+    dispatch(fetchReviewsList(id));
   }, [id, dispatch]);
   return (
     <>
@@ -33,13 +37,15 @@ const Product = (): JSX.Element => {
               <Camera cameraData={cameraData} />}
             {fetchCameraStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
           </div>
+          {similarList.length > 0 &&
+            <div className="page-content__section">
+              {fetchSimilarStatus === FetchStatus.Pending && <Spinner />}
+              {fetchSimilarStatus === FetchStatus.Fulfilled &&
+                <SimilarList similarList={similarList} />}
+            </div>}
           <div className="page-content__section">
-            {fetchSimilarStatus === FetchStatus.Pending && <Spinner />}
-            {fetchSimilarStatus === FetchStatus.Fulfilled &&
-              <SimilarList similarList={similarList} />}
-          </div>
-          <div className="page-content__section">
-            <section className="review-block">
+            <ReviewsList reviewsList={reviewsList} />
+            {/* <section className="review-block">
               <div className="container">
                 <div className="page-content__headed">
                   <h2 className="title title--h3">Отзывы</h2>
@@ -157,7 +163,7 @@ const Product = (): JSX.Element => {
                   </button>
                 </div>
               </div>
-            </section>
+            </section> */}
           </div>
         </div>
       </main>

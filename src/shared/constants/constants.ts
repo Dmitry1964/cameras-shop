@@ -6,6 +6,7 @@ export enum ApiActions {
   DataFetchPromoList = 'data/fetchPromoList',
   DataFetchCamera = 'data/fetchCamera',
   DataFetchSimilarList = 'data/fetchSimilarList',
+  DataFetchReviewsList = 'data/fetchReviewsList',
 }
 
 export const stars = [1, 2, 3, 4, 5];
@@ -13,3 +14,6 @@ export const stars = [1, 2, 3, 4, 5];
 export const TOTAL_CARD = 9;
 export const DEFAULT_START = 1;
 export const DEFAULT_END = 3;
+
+export const OPTIONS = 'options';
+export const DESCRIPTION = 'description';

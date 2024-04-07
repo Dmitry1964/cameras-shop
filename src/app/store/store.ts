@@ -4,6 +4,7 @@ import productsList from 'src/app/slices/product-list-slice';
 import promoList from 'src/app/slices/promo-list-slice';
 import cameraData from 'src/app/slices/camera-slice';
 import similarList from 'src/app/slices/similar-list-slice';
+import reviewsList from 'src/app/slices/reviews-list-slice'
 
 
 const api = createAPI();
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   promoList,
   cameraData,
   similarList,
+  reviewsList,
 });
 
 export const store = configureStore({

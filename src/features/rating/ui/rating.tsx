@@ -2,7 +2,7 @@ import { stars } from 'src/shared';
 
 type RatingProps = {
   rating: number;
-  reviewCount: number;
+  reviewCount?: number;
 }
 
 const Rating = ({ rating, reviewCount }: RatingProps): JSX.Element => (
