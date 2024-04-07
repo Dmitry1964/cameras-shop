@@ -1,7 +1,8 @@
-import { TPromo } from 'src/shared';
+import { AppRoutes, TPromo } from 'src/shared';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import { Link } from 'react-router-dom';
 
 type BannerProps = {
   promoList: TPromo[];
@@ -29,7 +30,7 @@ const Banner = ({ promoList }: BannerProps): JSX.Element => (
             <span className="banner__message">Новинка!</span>
             <span className="title title--h1">{item.name}</span>
             <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-            <a className="btn" href="#">Подробнее</a>
+            <Link className="btn" to={`${AppRoutes.Camera}/${item.id}`} >Подробнее</Link>
           </p>
         </SwiperSlide>
       ))}
