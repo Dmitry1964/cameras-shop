@@ -1,6 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import { Catalog } from 'src/pages/catalog';
-
 
 const Layout = (): JSX.Element => (
   <div className="wrapper">

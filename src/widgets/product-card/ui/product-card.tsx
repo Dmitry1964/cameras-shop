@@ -9,11 +9,11 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
   const { previewImgWebp2x, previewImgWebp, previewImg, previewImg2x, name, rating, reviewCount, price } = product;
   return (
-    <div className="product-card">
+    <div className="product-card is-active" style={{width: '100%'}}>
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x}`} />
-          <img src={previewImg} srcSet={previewImg2x} width="280" height="240" alt={name} />
+          <source type="image/webp" srcSet={`/${previewImgWebp}, /${previewImgWebp2x}`} />
+          <img src={`/${previewImg}`} srcSet={`/${previewImg2x}`} width="280" height="240" alt={name} />
         </picture>
       </div>
       <div className="product-card__info">

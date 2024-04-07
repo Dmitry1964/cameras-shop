@@ -42,7 +42,6 @@ const Pagination = ({ length, getCurrentCameras, pathname, page }: PaginationPro
     getCurrentCameras(paginationButtons.activeButton - index - 1);
   };
 
-
   useEffect(() => {
     setPaginationButton({...paginationButtons, activeButton: page});
   }, []);

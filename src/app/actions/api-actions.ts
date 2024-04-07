@@ -17,3 +17,8 @@ export const fetchCameraData = createAsyncThunk<TCamera, number, {extra: AxiosIn
   const {data} = await api.get <TCamera>(`${FetchRoutes.Camera}/${idCamera}`);
   return data;
 });
+
+export const fetchSimilarList = createAsyncThunk<TCamera[], number, {extra: AxiosInstance}>(ApiActions.DataFetchSimilarList, async(idCamera, {extra: api}) => {
+  const {data} = await api.get<TCamera[]>(`${FetchRoutes.Camera}/${idCamera}${FetchRoutes.Similar}`);
+  return data;
+});
