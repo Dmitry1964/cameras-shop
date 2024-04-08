@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { TReview } from 'src/shared';
 import { ReviewCard } from 'src/widgets/review-card';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
 
 type ReviewsListProps = {
   reviewsList: TReview[];
+  onAddButtonClick: () => void;
 }
 
-const ReviewsList = ({ reviewsList }: ReviewsListProps): JSX.Element => {
+const ReviewsList = ({ reviewsList, onAddButtonClick }: ReviewsListProps): JSX.Element => {
   const [count, setCount] = useState(3);
   // reviewsList.sort((a, b) => (dayjs(b.createAt).unix()) - (dayjs(a.createAt).unix()));
   return (
@@ -16,7 +17,13 @@ const ReviewsList = ({ reviewsList }: ReviewsListProps): JSX.Element => {
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">Оставить свой отзыв</button>
+          <button
+            onClick={onAddButtonClick}
+            className="btn"
+            type="button"
+          >
+            Оставить свой отзыв
+          </button>
         </div>
         <ul className="review-block__list">
           {reviewsList.slice(0, count).map((item) => (
@@ -31,8 +38,7 @@ const ReviewsList = ({ reviewsList }: ReviewsListProps): JSX.Element => {
               type="button"
             >
               Показать больше отзывов
-            </button>
-          }
+            </button>}
         </div>
       </div>
     </section>

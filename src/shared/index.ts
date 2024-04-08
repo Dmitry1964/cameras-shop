@@ -1,5 +1,5 @@
 import { AppRoutes, FetchRoutes } from './routes/routes';
-import { TCamera, FetchStatus, TPromo, TReview } from './types/app-types';
+import { TCamera, FetchStatus, TPromo, TReview, TUserReview } from './types/app-types';
 import { BACKEND_URL, TIME_OUT, ApiActions, stars, TOTAL_CARD, DEFAULT_START, DEFAULT_END, OPTIONS, DESCRIPTION} from './constants/constants';
 import { createAPI } from './api/api';
 import { getArrNumbers, getIndex } from './service/service';
@@ -22,5 +22,5 @@ export {
   DESCRIPTION,
 };
 
-export type {TCamera, TPromo, TReview};
+export type {TCamera, TPromo, TReview, TUserReview};
 

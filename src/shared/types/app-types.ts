@@ -35,6 +35,15 @@ export type TReview = {
   rating: number;
 }
 
+export type TUserReview = {
+  cameraId: number;
+  userName: string;
+  advantage: string;
+  disadvantage: string;
+  review: string;
+  rating: number;
+}
+
 export enum ProductType {
   Collectible = 'Коллекционная',
   Instant = 'Моментальная',
