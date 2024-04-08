@@ -3,10 +3,11 @@ import { stars } from 'src/shared';
 type RatingProps = {
   rating: number;
   reviewCount?: number;
+  rateClass: string;
 }
 
-const Rating = ({ rating, reviewCount }: RatingProps): JSX.Element => (
-  <div className="rate product-card__rate">
+const Rating = ({ rating, reviewCount, rateClass }: RatingProps): JSX.Element => (
+  <div className={`rate ${rateClass}`}>
     {stars.map((item) => (
       item <= rating
         ?

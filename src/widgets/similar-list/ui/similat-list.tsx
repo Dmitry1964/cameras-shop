@@ -33,7 +33,7 @@ const SimilarList = ({ similarList }: SimilatListProps): JSX.Element => {
           >
             {similarList.map((item) => (
               <SwiperSlide key={item.id}>
-                <ProductCard product={item} />
+                <ProductCard product={item}/>
               </SwiperSlide>
             ))}
           </Swiper>

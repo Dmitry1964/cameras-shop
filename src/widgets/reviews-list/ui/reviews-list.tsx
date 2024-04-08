@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TReview } from 'src/shared';
 import { ReviewCard } from 'src/widgets/review-card';
+import dayjs from 'dayjs';
 
 
 type ReviewsListProps = {
@@ -9,6 +10,7 @@ type ReviewsListProps = {
 
 const ReviewsList = ({ reviewsList }: ReviewsListProps): JSX.Element => {
   const [count, setCount] = useState(3);
+  // reviewsList.sort((a, b) => (dayjs(b.createAt).unix()) - (dayjs(a.createAt).unix()));
   return (
     <section className="review-block">
       <div className="container">

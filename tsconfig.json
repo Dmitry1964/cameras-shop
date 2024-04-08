@@ -9,6 +9,8 @@
     "paths": {
       "src/*": [ "./src/*" ]
     },
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",

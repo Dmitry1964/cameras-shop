@@ -17,7 +17,7 @@ const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
         </picture>
       </div>
       <div className="product-card__info">
-        <Rating rating={rating} reviewCount={reviewCount} />
+        <Rating rating={rating} reviewCount={reviewCount} rateClass={'product-card__rate'} />
         <p className="product-card__title">{name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{price.toLocaleString('ru-RU')} ₽
         </p>
