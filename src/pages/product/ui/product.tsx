@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCameraData, fetchReviewsList, fetchSimilarList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
-import { FetchStatus, TUserReview } from 'src/shared';
+import { FetchStatus } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { Breadcrumbs } from 'src/widgets/breadcrumbs/ui';
 import { Camera } from 'src/widgets/camera';
@@ -20,14 +20,21 @@ const Product = (): JSX.Element => {
   const fetchReviewsStatus = useAppSelector((state) => state.reviewsList.status);
   const param = useParams();
 
+
   const id = param ? parseInt((param.idCamera as string), 10) : 1;
 
   const [showModal, setShowModal] = useState(false);
 
   const onAddReviewBtnClick = () => {
     setShowModal(!showModal);
+    document.body.style.position = 'fixed';
+
   };
-  const onCloseModalBtnClick = () => setShowModal(!showModal);
+  const onCloseModalBtnClick = () => {
+    setShowModal(!showModal);
+    document.body.style.position = '';
+
+  };
 
   useEffect(() => {
     dispatch(fetchCameraData(id));

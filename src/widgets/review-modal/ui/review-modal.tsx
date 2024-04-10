@@ -26,6 +26,17 @@ const ReviewModal = ({
   });
 
   const dispatch = useAppDispatch();
+  const refElement = useRef<HTMLDivElement>(null);
+
+  const setDefaultRating = () => {
+    const el = refElement.current;
+    if (el) {
+      const inputFields = el.querySelectorAll('input');
+      inputFields.forEach((item: { checked: boolean }) => {
+        item.checked = false;
+      });
+    }
+  };
 
   const onFormSubmitBtnClick = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -33,6 +44,7 @@ const ReviewModal = ({
       dispatch(fetchReviewsList(id))
     );
     setFormData({ ...formData, advantage: '', disadvantage: '', rating: 0, userName: '', review: '' });
+    setDefaultRating();
     onCloseModal();
   };
 
@@ -79,7 +91,7 @@ const ReviewModal = ({
                     </svg>
                   </legend>
                   <div className="rate__bar">
-                    <div className="rate__group">
+                    <div className="rate__group" ref={refElement}>
                       <input
                         onChange={(evt) =>
                           setFormData({
