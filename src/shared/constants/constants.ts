@@ -7,6 +7,7 @@ export enum ApiActions {
   DataFetchCamera = 'data/fetchCamera',
   DataFetchSimilarList = 'data/fetchSimilarList',
   DataFetchReviewsList = 'data/fetchReviewsList',
+  DataFetchReview = 'data/fetchReview',
 }
 
 export const stars = [1, 2, 3, 4, 5];

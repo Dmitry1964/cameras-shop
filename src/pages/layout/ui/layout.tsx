@@ -42,10 +42,12 @@ const Layout = (): JSX.Element => (
               <use xlinkHref="#icon-close"></use>
             </svg><span className="visually-hidden">Сбросить поиск</span>
           </button>
-        </div><a className="header__basket-link" href="#">
+        </div>
+        <a className="header__basket-link" href="#">
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
-          </svg></a>
+          </svg>
+        </a>
       </div>
     </header>
     <Outlet />

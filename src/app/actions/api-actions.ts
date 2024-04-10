@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { ApiActions, FetchRoutes, TCamera, TPromo, TReview } from 'src/shared';
+import { ApiActions, FetchRoutes, TCamera, TPromo, TReview, TUserReview } from 'src/shared';
 
 
 export const fetchCamerasList = createAsyncThunk<TCamera[], void, {extra: AxiosInstance}>(ApiActions.DataFetchCamerasList, async(_arg, {extra: api}) => {
@@ -25,5 +25,10 @@ export const fetchSimilarList = createAsyncThunk<TCamera[], number, {extra: Axio
 
 export const fetchReviewsList = createAsyncThunk<TReview[], number, {extra: AxiosInstance}>(ApiActions.DataFetchReviewsList, async(idCamera, {extra: api}) => {
   const {data} = await api.get<TReview[]>(`${FetchRoutes.Camera}/${idCamera}${FetchRoutes.Reviews}`);
+  return data;
+});
+
+export const fetchUserReview = createAsyncThunk<TReview, TUserReview, {extra: AxiosInstance}>(ApiActions.DataFetchReview, async(formData, {extra: api}) => {
+  const {data} = await api.post<TReview>(FetchRoutes.Reviews, formData);
   return data;
 });

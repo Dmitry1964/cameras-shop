@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCameraData, fetchReviewsList, fetchSimilarList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
-import { FetchStatus } from 'src/shared';
+import { FetchStatus, TUserReview } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { Breadcrumbs } from 'src/widgets/breadcrumbs/ui';
 import { Camera } from 'src/widgets/camera';
@@ -23,7 +23,10 @@ const Product = (): JSX.Element => {
   const id = param ? parseInt((param.idCamera as string), 10) : 1;
 
   const [showModal, setShowModal] = useState(false);
-  const onAddReviewBtnClick = () => setShowModal(!showModal);
+
+  const onAddReviewBtnClick = () => {
+    setShowModal(!showModal);
+  };
   const onCloseModalBtnClick = () => setShowModal(!showModal);
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const Product = (): JSX.Element => {
           <div className="page-content__section">
             {fetchReviewsStatus === FetchStatus.Pending && <Spinner />}
             {fetchReviewsStatus === FetchStatus.Fulfilled &&
-            <ReviewsList reviewsList={reviewsList} onAddButtonClick={onAddReviewBtnClick} />}
+              <ReviewsList reviewsList={reviewsList} onAddButtonClick={onAddReviewBtnClick} />}
           </div>
         </div>
       </main>
@@ -60,7 +63,7 @@ const Product = (): JSX.Element => {
           <use xlinkHref="#icon-arrow2"></use>
         </svg>
       </a>
-      <ReviewModal showModal={showModal} onCloseModal={onCloseModalBtnClick}/>
+      <ReviewModal showModal={showModal} onCloseModal={onCloseModalBtnClick} id={id} />
     </>
   );
 };
