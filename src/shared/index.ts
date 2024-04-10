@@ -2,7 +2,7 @@ import { AppRoutes, FetchRoutes } from './routes/routes';
 import { TCamera, FetchStatus, TPromo, TReview, TUserReview } from './types/app-types';
 import { BACKEND_URL, TIME_OUT, ApiActions, stars, TOTAL_CARD, DEFAULT_START, DEFAULT_END, OPTIONS, DESCRIPTION} from './constants/constants';
 import { createAPI } from './api/api';
-import { getArrNumbers, getIndex } from './service/service';
+import { getArrNumbers, getIndex, addPositionFixed, removePositionFixed } from './service/service';
 
 export {
   AppRoutes,
@@ -20,6 +20,8 @@ export {
   getIndex,
   OPTIONS,
   DESCRIPTION,
+  addPositionFixed,
+  removePositionFixed
 };
 
 export type {TCamera, TPromo, TReview, TUserReview};

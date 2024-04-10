@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCameraData, fetchReviewsList, fetchSimilarList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
-import { FetchStatus } from 'src/shared';
+import { FetchStatus, addPositionFixed, removePositionFixed } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { Breadcrumbs } from 'src/widgets/breadcrumbs/ui';
 import { Camera } from 'src/widgets/camera';
 import ReviewModal from 'src/widgets/review-modal/ui/review-modal';
+import { ReviewSuccess } from 'src/widgets/review-success';
 import { ReviewsList } from 'src/widgets/reviews-list';
 import { SimilarList } from 'src/widgets/similar-list';
 
@@ -18,6 +19,7 @@ const Product = (): JSX.Element => {
   const fetchSimilarStatus = useAppSelector((state) => state.similarList.status);
   const reviewsList = useAppSelector((state) => state.reviewsList.reviewsList);
   const fetchReviewsStatus = useAppSelector((state) => state.reviewsList.status);
+  const fetchUserReviewStatus = useAppSelector((state) => state.userReview.status);
   const param = useParams();
 
 
@@ -26,14 +28,13 @@ const Product = (): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
 
   const onAddReviewBtnClick = () => {
-    setShowModal(!showModal);
-    document.body.style.position = 'fixed';
+    setShowModal(true);
+    addPositionFixed();
 
   };
   const onCloseModalBtnClick = () => {
-    setShowModal(!showModal);
-    document.body.style.position = '';
-
+    setShowModal(false);
+    removePositionFixed();
   };
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const Product = (): JSX.Element => {
         </svg>
       </a>
       <ReviewModal showModal={showModal} onCloseModal={onCloseModalBtnClick} id={id} />
+      {fetchUserReviewStatus === FetchStatus.Fulfilled && <ReviewSuccess />}
     </>
   );
 };

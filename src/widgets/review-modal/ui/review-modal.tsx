@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { fetchReviewsList, fetchUserReview } from 'src/app/actions/api-actions';
-import { TUserReview } from 'src/shared';
-import { useAppDispatch } from 'src/shared/hooks/hooks';
+import { TUserReview, addPositionFixed, removePositionFixed } from 'src/shared';
+import { useAppDispatch} from 'src/shared/hooks/hooks';
 
 type ReviewModalProps = {
   showModal: boolean;
@@ -46,6 +46,7 @@ const ReviewModal = ({
     setFormData({ ...formData, advantage: '', disadvantage: '', rating: 0, userName: '', review: '' });
     setDefaultRating();
     onCloseModal();
+    addPositionFixed();
   };
 
   useEffect(() => {
@@ -56,6 +57,7 @@ const ReviewModal = ({
     const closeModal = (evt: { keyCode: number }) => {
       if (evt.keyCode === 27) {
         onCloseModal();
+        removePositionFixed();
       }
     };
     window.addEventListener('keydown', closeModal);
@@ -66,6 +68,7 @@ const ReviewModal = ({
     const closeModal = (evt: globalThis.MouseEvent) => {
       if (evt.target === modalEl.current) {
         onCloseModal();
+        removePositionFixed();
       }
     };
     document.addEventListener('click', (evt) => closeModal(evt));

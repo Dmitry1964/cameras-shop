@@ -7,7 +7,7 @@ type TUserReviewState = {
   status: FetchStatus;
 };
 
-const initialState : TUserReviewState = {
+const initialState: TUserReviewState = {
   userReview: {
     id: '',
     userName: '',
@@ -19,12 +19,16 @@ const initialState : TUserReviewState = {
     review: '',
   },
   status: FetchStatus.Idle,
-} ;
+};
 
 const userReviewSlice = createSlice({
   name: 'userReview',
   initialState,
-  reducers: {},
+  reducers: {
+    changeStatus: (state) => {
+      state.status = FetchStatus.Idle;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchUserReview.pending, (state) => {
@@ -34,9 +38,9 @@ const userReviewSlice = createSlice({
       .addCase(fetchUserReview.fulfilled, (state, action) => {
         state.status = FetchStatus.Fulfilled;
         state.userReview = action.payload;
-      })
+      });
   },
 });
 
-
+export const {changeStatus} = userReviewSlice.actions;
 export default userReviewSlice.reducer;

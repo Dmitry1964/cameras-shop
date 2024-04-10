@@ -6,4 +6,12 @@ export const getArrNumbers = (num : number) => {
   return arr;
 };
 
+export const addPositionFixed = () => {
+  document.body.style.position = 'fixed';
+};
+
+export const removePositionFixed = () => {
+  document.body.style.position = '';
+};
+
 export const getIndex = (arr: number[], item: number) : number => arr.indexOf(item);
