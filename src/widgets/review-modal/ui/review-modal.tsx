@@ -2,15 +2,19 @@ import cn from 'classnames';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { fetchReviewsList, fetchUserReview } from 'src/app/actions/api-actions';
 import { TUserReview } from 'src/shared';
-import { useAppDispatch} from 'src/shared/hooks/hooks';
+import { useAppDispatch } from 'src/shared/hooks/hooks';
 
 type ReviewModalProps = {
   showModal: boolean;
   onCloseModal: () => void;
   id: number;
-}
+};
 
-const ReviewModal = ({ showModal, onCloseModal, id }: ReviewModalProps): JSX.Element => {
+const ReviewModal = ({
+  showModal,
+  onCloseModal,
+  id,
+}: ReviewModalProps): JSX.Element => {
   const modalEl = useRef(null);
   const [formData, setFormData] = useState<TUserReview>({
     rating: 0,
@@ -25,8 +29,10 @@ const ReviewModal = ({ showModal, onCloseModal, id }: ReviewModalProps): JSX.Ele
 
   const onFormSubmitBtnClick = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(fetchUserReview(formData))
-      .then (() => dispatch(fetchReviewsList(id)));
+    dispatch(fetchUserReview(formData)).then(() =>
+      dispatch(fetchReviewsList(id))
+    );
+    setFormData({ ...formData, advantage: '', disadvantage: '', rating: 0, userName: '', review: '' });
     onCloseModal();
   };
 
@@ -57,9 +63,7 @@ const ReviewModal = ({ showModal, onCloseModal, id }: ReviewModalProps): JSX.Ele
   });
 
   return (
-    <div
-      className={cn('modal', { 'is-active': showModal })}
-    >
+    <div className={cn('modal', { 'is-active': showModal })}>
       <div className="modal__wrapper">
         <div className="modal__overlay" ref={modalEl}></div>
         <div className="modal__content">
@@ -68,38 +72,124 @@ const ReviewModal = ({ showModal, onCloseModal, id }: ReviewModalProps): JSX.Ele
             <form method="post" onSubmit={(evt) => onFormSubmitBtnClick(evt)}>
               <div className="form-review__rate">
                 <fieldset className="rate form-review__item">
-                  <legend className="rate__caption">Рейтинг
+                  <legend className="rate__caption">
+                    Рейтинг
                     <svg width="9" height="9" aria-hidden="true">
                       <use xlinkHref="#icon-snowflake"></use>
                     </svg>
                   </legend>
                   <div className="rate__bar">
                     <div className="rate__group">
-                      <input onChange={(evt) => setFormData({ ...formData, rating: parseInt(evt.target.value, 10) })} className="visually-hidden" id="star-5" name="rate" type="radio" value="5" />
-                      <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
-                      <input onChange={(evt) => setFormData({ ...formData, rating: parseInt(evt.target.value, 10) })} className="visually-hidden" id="star-4" name="rate" type="radio" value="4" />
-                      <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
-                      <input onChange={(evt) => setFormData({ ...formData, rating: parseInt(evt.target.value, 10) })} className="visually-hidden" id="star-3" name="rate" type="radio" value="3" />
-                      <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
-                      <input onChange={(evt) => setFormData({ ...formData, rating: parseInt(evt.target.value, 10) })} className="visually-hidden" id="star-2" name="rate" type="radio" value="2" />
-                      <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
-                      <input onChange={(evt) => setFormData({ ...formData, rating: parseInt(evt.target.value, 10) })} className="visually-hidden" id="star-1" name="rate" type="radio" value="1" />
-                      <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
+                      <input
+                        onChange={(evt) =>
+                          setFormData({
+                            ...formData,
+                            rating: parseInt(evt.target.value, 10),
+                          })}
+                        className="visually-hidden"
+                        id="star-5"
+                        name="rate"
+                        type="radio"
+                        value="5"
+                      />
+                      <label
+                        className="rate__label"
+                        htmlFor="star-5"
+                        title="Отлично"
+                      >
+                      </label>
+                      <input
+                        onChange={(evt) =>
+                          setFormData({
+                            ...formData,
+                            rating: parseInt(evt.target.value, 10),
+                          })}
+                        className="visually-hidden"
+                        id="star-4"
+                        name="rate"
+                        type="radio"
+                        value="4"
+                      />
+                      <label
+                        className="rate__label"
+                        htmlFor="star-4"
+                        title="Хорошо"
+                      >
+                      </label>
+                      <input
+                        onChange={(evt) =>
+                          setFormData({
+                            ...formData,
+                            rating: parseInt(evt.target.value, 10),
+                          })}
+                        className="visually-hidden"
+                        id="star-3"
+                        name="rate"
+                        type="radio"
+                        value="3"
+                      />
+                      <label
+                        className="rate__label"
+                        htmlFor="star-3"
+                        title="Нормально"
+                      >
+                      </label>
+                      <input
+                        onChange={(evt) =>
+                          setFormData({
+                            ...formData,
+                            rating: parseInt(evt.target.value, 10),
+                          })}
+                        className="visually-hidden"
+                        id="star-2"
+                        name="rate"
+                        type="radio"
+                        value="2"
+                      />
+                      <label
+                        className="rate__label"
+                        htmlFor="star-2"
+                        title="Плохо"
+                      >
+                      </label>
+                      <input
+                        onChange={(evt) =>
+                          setFormData({
+                            ...formData,
+                            rating: parseInt(evt.target.value, 10),
+                          })}
+                        className="visually-hidden"
+                        id="star-1"
+                        name="rate"
+                        type="radio"
+                        value="1"
+                      />
+                      <label
+                        className="rate__label"
+                        htmlFor="star-1"
+                        title="Ужасно"
+                      >
+                      </label>
                     </div>
-                    <div className="rate__progress"><span className="rate__stars">{formData.rating}</span> <span>/</span> <span className="rate__all-stars">5</span>
+                    <div className="rate__progress">
+                      <span className="rate__stars">{formData.rating}</span>{' '}
+                      <span>/</span> <span className="rate__all-stars">5</span>
                     </div>
                   </div>
                   <p className="rate__message">Нужно оценить товар</p>
                 </fieldset>
                 <div className="custom-input form-review__item">
                   <label>
-                    <span className="custom-input__label">Ваше имя
+                    <span className="custom-input__label">
+                      Ваше имя
                       <svg width="9" height="9" aria-hidden="true">
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
                     <input
-                      onChange={(evt) => setFormData({ ...formData, userName: evt.target.value })}
+                      value={formData.userName}
+                      onChange={(evt) =>
+                        setFormData({ ...formData, userName: evt.target.value })}
                       type="text"
                       name="user-name"
                       placeholder="Введите ваше имя"
@@ -110,57 +200,83 @@ const ReviewModal = ({ showModal, onCloseModal, id }: ReviewModalProps): JSX.Ele
                 </div>
                 <div className="custom-input form-review__item">
                   <label>
-                    <span className="custom-input__label">Достоинства
+                    <span className="custom-input__label">
+                      Достоинства
                       <svg width="9" height="9" aria-hidden="true">
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
                     <input
-                      onChange={(evt) => setFormData({ ...formData, advantage: evt.target.value })}
+                      value={formData.advantage}
+                      onChange={(evt) =>
+                        setFormData({
+                          ...formData,
+                          advantage: evt.target.value,
+                        })}
                       type="text"
                       name="user-plus"
                       placeholder="Основные преимущества товара"
                       required
                     />
                   </label>
-                  <p className="custom-input__error">Нужно указать достоинства</p>
+                  <p className="custom-input__error">
+                    Нужно указать достоинства
+                  </p>
                 </div>
                 <div className="custom-input form-review__item">
                   <label>
-                    <span className="custom-input__label">Недостатки
+                    <span className="custom-input__label">
+                      Недостатки
                       <svg width="9" height="9" aria-hidden="true">
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
                     <input
-                      onChange={(evt) => setFormData({ ...formData, disadvantage: evt.target.value })}
+                      value={formData.disadvantage}
+                      onChange={(evt) =>
+                        setFormData({
+                          ...formData,
+                          disadvantage: evt.target.value,
+                        })}
                       type="text"
                       name="user-minus"
                       placeholder="Главные недостатки товара"
                       required
                     />
                   </label>
-                  <p className="custom-input__error">Нужно указать недостатки</p>
+                  <p className="custom-input__error">
+                    Нужно указать недостатки
+                  </p>
                 </div>
                 <div className="custom-textarea form-review__item">
                   <label>
-                    <span className="custom-textarea__label">Комментарий
+                    <span className="custom-textarea__label">
+                      Комментарий
                       <svg width="9" height="9" aria-hidden="true">
                         <use xlinkHref="#icon-snowflake"></use>
                       </svg>
                     </span>
                     <textarea
-                      onChange={(evt) => setFormData({ ...formData, review: evt.target.value })}
+                      value={formData.review}
+                      onChange={(evt) =>
+                        setFormData({ ...formData, review: evt.target.value })}
                       name="user-comment"
                       minLength={5}
                       placeholder="Поделитесь своим опытом покупки"
                     >
                     </textarea>
                   </label>
-                  <div className="custom-textarea__error">Нужно добавить комментарий</div>
+                  <div className="custom-textarea__error">
+                    Нужно добавить комментарий
+                  </div>
                 </div>
               </div>
-              <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
+              <button
+                className="btn btn--purple form-review__btn"
+                type="submit"
+              >
+                Отправить отзыв
+              </button>
             </form>
           </div>
           <button
@@ -178,6 +294,5 @@ const ReviewModal = ({ showModal, onCloseModal, id }: ReviewModalProps): JSX.Ele
     </div>
   );
 };
-
 
 export default ReviewModal;
