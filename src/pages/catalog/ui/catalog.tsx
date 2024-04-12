@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchCamerasList, fetchPromoList } from 'src/app/actions/api-actions';
 import { Spinner } from 'src/features';
-import { FetchStatus } from 'src/shared';
+import { FetchStatus, addPositionFixed, removePositionFixed } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { Banner } from 'src/widgets/banner';
 import { Breadcrumbs } from 'src/widgets/breadcrumbs/ui';
@@ -27,11 +27,23 @@ const Catalog = (): JSX.Element => {
 
   const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});
   const [showAddModal, setShowAddModal] = useState(false);
+  const [idCamera, setIdCamera] = useState(1);
   const [searchParams] = useSearchParams();
 
 
   const getCurrentCameras = (pageNumber: number) => {
     setCurrentList({...currentList, start: TOTAL_CARD * (pageNumber - 1), end: TOTAL_CARD * pageNumber});
+  };
+
+  const showAddItemModal = (param : boolean, id: number) => {
+    setShowAddModal(param);
+    setIdCamera(id);
+    addPositionFixed();
+  };
+
+  const closeAddItemModal = () => {
+    setShowAddModal(false);
+    removePositionFixed();
   };
 
   useEffect(() => {
@@ -62,7 +74,7 @@ const Catalog = (): JSX.Element => {
               <div className="catalog__content">
                 <CatalogSort />
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
-                {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList.slice(currentList.start, currentList.end)}/>}
+                {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList.slice(currentList.start, currentList.end)} showAddItemModal={showAddItemModal}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
                 {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname} page={pageNumber}/>}
               </div>
@@ -70,7 +82,7 @@ const Catalog = (): JSX.Element => {
           </div>
         </section>
       </div>
-      {showAddModal && <AddProductModal />}
+      {showAddModal && <AddProductModal idCamera={idCamera} onCloseButtonClick={closeAddItemModal} />}
     </main>
   );
 };

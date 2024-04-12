@@ -1,29 +1,64 @@
+import { useEffect, useRef } from 'react';
+import { TCamera } from 'src/shared';
+import { useAppSelector } from 'src/shared/hooks/hooks';
 
+type AddProductModalProps = {
+  idCamera: number;
+  onCloseButtonClick: () => void;
+}
 
-const AddProductModal = () => {
-  const a = 2;
+const AddProductModal = ({ idCamera, onCloseButtonClick }: AddProductModalProps): JSX.Element => {
+  const modalOverlay = useRef(null);
+  const camerasList = useAppSelector((state) => state.productsList.cameras);
+  const currentCamera = camerasList.find((item) => item.id === idCamera);
+  const { previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, vendorCode, level, category, price, type, } = currentCamera as TCamera;
+
+  useEffect(() => {
+    const closeAddItemModal = (evt : {keyCode : number}) => {
+      if (evt.keyCode === 27) {
+        onCloseButtonClick();
+      }
+    };
+    window.addEventListener('keydown', closeAddItemModal);
+    return () => {
+      window.removeEventListener('keydown', closeAddItemModal);
+    };
+  }, [onCloseButtonClick]);
+
+  useEffect(() => {
+    const closeAddItemModal = (evt :globalThis.MouseEvent) => {
+      if (evt.target === modalOverlay.current) {
+        onCloseButtonClick();
+      }
+    };
+    document.addEventListener('click', (evt) => closeAddItemModal(evt));
+    return () => {
+      document.removeEventListener('click', closeAddItemModal);
+    };
+  }, [onCloseButtonClick]);
+
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">
-        <div className="modal__overlay"></div>
+        <div className="modal__overlay" ref={modalOverlay}></div>
         <div className="modal__content">
           <p className="title title--h4">Добавить товар в корзину</p>
           <div className="basket-item basket-item--short">
             <div className="basket-item__img">
               <picture>
-                <source type="image/webp" srcSet="img/content/orlenok.webp, img/content/orlenok@2x.webp 2x" />
-                <img src="img/content/orlenok.jpg" srcSet="img/content/orlenok@2x.jpg 2x" width="140" height="120" alt="Фотоаппарат «Орлёнок»" />
+                <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x}`} />
+                <img src={previewImg} srcSet={previewImg2x} width="140" height="120" alt={name} />
               </picture>
             </div>
             <div className="basket-item__description">
-              <p className="basket-item__title">Орлёнок</p>
+              <p className="basket-item__title">{name}</p>
               <ul className="basket-item__list">
-                <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span> <span className="basket-item__number">O78DFGSD832</span>
+                <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span> <span className="basket-item__number">{vendorCode}</span>
                 </li>
-                <li className="basket-item__list-item">Плёночная фотокамера</li>
-                <li className="basket-item__list-item">Любительский уровень</li>
+                <li className="basket-item__list-item">{`${category} ${type.toLowerCase()}`}</li>
+                <li className="basket-item__list-item">{level} уровень</li>
               </ul>
-              <p className="basket-item__price"><span className="visually-hidden">Цена:</span>18 970 ₽</p>
+              <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{price.toLocaleString('ru-RU')} ₽</p>
             </div>
           </div>
           <div className="modal__buttons">
@@ -33,7 +68,12 @@ const AddProductModal = () => {
               </svg>Добавить в корзину
             </button>
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button
+            onClick={onCloseButtonClick}
+            className="cross-btn"
+            type="button"
+            aria-label="Закрыть попап"
+          >
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
             </svg>
@@ -43,6 +83,4 @@ const AddProductModal = () => {
     </div>
   );
 };
-
-
 export default AddProductModal;

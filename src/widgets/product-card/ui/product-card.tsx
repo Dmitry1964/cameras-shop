@@ -4,12 +4,13 @@ import { AppRoutes, TCamera } from 'src/shared';
 
 type ProductCardProps = {
   product: TCamera;
+  showAddItemModal: (param: boolean, id: number) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
-  const { previewImgWebp2x, previewImgWebp, previewImg, previewImg2x, name, rating, reviewCount, price } = product;
+const ProductCard = ({ product, showAddItemModal }: ProductCardProps): JSX.Element => {
+  const { previewImgWebp2x, previewImgWebp, previewImg, previewImg2x, name, rating, reviewCount, price, id } = product;
   return (
-    <div className="product-card is-active" style={{width: '100%'}}>
+    <div className="product-card is-active" style={{ width: '100%' }}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${previewImgWebp}, /${previewImgWebp2x}`} />
@@ -23,7 +24,12 @@ const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button
+          onClick={() => showAddItemModal(true, id)}
+          className="btn btn--purple product-card__btn"
+          type="button"
+        >
+          Купить
         </button>
         <Link className="btn btn--transparent" to={`${AppRoutes.Camera}/${product.id}`}>
           Подробнее
