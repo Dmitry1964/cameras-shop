@@ -11,6 +11,7 @@ import { Pagination } from 'src/widgets/pagination';
 import { ProductsList } from 'src/widgets/products-list';
 import { TOTAL_CARD } from 'src/shared';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { AddProductModal } from 'src/features/add-product-modal';
 
 type CurrentList = {
   start: number;
@@ -25,6 +26,7 @@ const Catalog = (): JSX.Element => {
   const {pathname} = useLocation();
 
   const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});
+  const [showAddModal, setShowAddModal] = useState(false);
   const [searchParams] = useSearchParams();
 
 
@@ -33,9 +35,11 @@ const Catalog = (): JSX.Element => {
   };
 
   useEffect(() => {
-    dispatch(fetchCamerasList());
-    dispatch(fetchPromoList());
-  }, [dispatch]);
+    if(fetchListStatus === FetchStatus.Idle) {
+      dispatch(fetchCamerasList());
+      dispatch(fetchPromoList());
+    }
+  }, [dispatch, fetchListStatus]);
 
   const page = searchParams.get('page');
   const pageNumber = page ? parseInt(page, 10) : 1;
@@ -66,6 +70,7 @@ const Catalog = (): JSX.Element => {
           </div>
         </section>
       </div>
+      {showAddModal && <AddProductModal />}
     </main>
   );
 };
