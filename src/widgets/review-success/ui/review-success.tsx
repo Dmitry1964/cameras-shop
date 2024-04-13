@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { changeStatus } from 'src/app/slices/user-review-slice';
+import { changeStatus } from 'src/app/slices/user-review-slice/user-review-slice';
 import { removePositionFixed } from 'src/shared';
 import { useAppDispatch } from 'src/shared/hooks/hooks';
 

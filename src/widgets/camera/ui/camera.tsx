@@ -21,7 +21,7 @@ const Camera = ({ cameraData }: CameraProps): JSX.Element => {
         </div>
         <div className="product__content">
           <h1 className="title title--h3">{name}</h1>
-          <Rating rating={rating} reviewCount={reviewCount} />
+          <Rating rating={rating} reviewCount={reviewCount} rateClass={''} />
           <p className="product__price"><span className="visually-hidden">Цена:</span>{price.toLocaleString('ru-RU')} ₽</p>
           <button className="btn btn--purple" type="button">
             <svg width="24" height="16" aria-hidden="true">

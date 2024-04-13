@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TCamera } from 'src/shared';
 import { FetchStatus } from 'src/shared';
 import { ProductCategory, ProductLevel, ProductType } from 'src/shared/types/app-types';
-import { fetchCameraData } from '../actions/api-actions';
+import { fetchCameraData } from '../../actions/api-actions';
 
 type TCameraState = {
   camera: TCamera;

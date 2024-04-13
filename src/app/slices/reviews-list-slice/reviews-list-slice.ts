@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, TReview } from 'src/shared';
-import { fetchReviewsList } from '../actions/api-actions';
+import { fetchReviewsList } from '../../actions/api-actions';
 
 type ReviewsListState = {
   reviewsList: TReview[];

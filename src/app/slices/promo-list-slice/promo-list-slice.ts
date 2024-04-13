@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, TPromo } from 'src/shared';
-import { fetchPromoList } from '../actions/api-actions';
+import { fetchPromoList } from '../../actions/api-actions';
 
 
 export type TPromoListState = {

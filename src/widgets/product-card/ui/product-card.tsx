@@ -4,7 +4,7 @@ import { AppRoutes, TCamera } from 'src/shared';
 
 type ProductCardProps = {
   product: TCamera;
-  showAddItemModal: (param: boolean, id: number) => void;
+  showAddItemModal?: (param: boolean, id: number) => void;
 }
 
 const ProductCard = ({ product, showAddItemModal }: ProductCardProps): JSX.Element => {

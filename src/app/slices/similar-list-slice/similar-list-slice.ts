@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, TCamera } from 'src/shared';
-import { fetchSimilarList } from '../actions/api-actions';
+import { fetchSimilarList } from '../../actions/api-actions';
 
 type TSimilarListState = {
   similarList: TCamera[];
