@@ -46,7 +46,7 @@ const Product = (): JSX.Element => {
     <>
       <main>
         <div className="page-content">
-          <Breadcrumbs />
+          {fetchCameraStatus === FetchStatus.Fulfilled && <Breadcrumbs/>}
           <div className="page-content__section">
             {fetchCameraStatus === FetchStatus.Pending && <Spinner />}
             {fetchCameraStatus === FetchStatus.Fulfilled &&
