@@ -12,6 +12,7 @@ import { ProductsList } from 'src/widgets/products-list';
 import { TOTAL_CARD } from 'src/shared';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { AddProductModal } from 'src/features/add-product-modal';
+import { closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
 
 type CurrentList = {
   start: number;
@@ -23,11 +24,11 @@ const Catalog = (): JSX.Element => {
   const fetchListStatus = useAppSelector((state) => state.productsList.status);
   const camerasList = useAppSelector((state) => state.productsList.cameras);
   const promoList = useAppSelector((state) => state.promoList.promoList);
+  const showAddModal = useAppSelector((state) => state.showAddModal.showModal);
+  const idCamera = useAppSelector((state) => state.showAddModal.idCamera);
   const {pathname} = useLocation();
 
   const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [idCamera, setIdCamera] = useState(1);
   const [searchParams] = useSearchParams();
 
 
@@ -35,14 +36,13 @@ const Catalog = (): JSX.Element => {
     setCurrentList({...currentList, start: TOTAL_CARD * (pageNumber - 1), end: TOTAL_CARD * pageNumber});
   };
 
-  const showAddItemModal = (param : boolean, id: number) => {
-    setShowAddModal(param);
-    setIdCamera(id);
+  const showAddItemModal = (id: number) => {
+    dispatch(openAddModal(id));
     addPositionFixed();
   };
 
   const closeAddItemModal = () => {
-    setShowAddModal(false);
+    dispatch(closeAddModal());
     removePositionFixed();
   };
 
@@ -82,7 +82,7 @@ const Catalog = (): JSX.Element => {
           </div>
         </section>
       </div>
-      {showAddModal && <AddProductModal idCamera={idCamera} onCloseButtonClick={closeAddItemModal} />}
+      {showAddModal && <AddProductModal idCamera={idCamera} camerasList={camerasList} onCloseButtonClick={closeAddItemModal} />}
     </main>
   );
 };

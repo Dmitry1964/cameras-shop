@@ -1,15 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { TCamera } from 'src/shared';
-import { useAppSelector } from 'src/shared/hooks/hooks';
 
 type AddProductModalProps = {
   idCamera: number;
   onCloseButtonClick: () => void;
+  camerasList: TCamera[];
 }
 
-const AddProductModal = ({ idCamera, onCloseButtonClick }: AddProductModalProps): JSX.Element => {
+const AddProductModal = ({ idCamera, onCloseButtonClick, camerasList }: AddProductModalProps): JSX.Element => {
   const modalOverlay = useRef(null);
-  const camerasList = useAppSelector((state) => state.productsList.cameras);
   const currentCamera = camerasList.find((item) => item.id === idCamera);
   const { previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, vendorCode, level, category, price, type, } = currentCamera as TCamera;
 
@@ -46,7 +45,7 @@ const AddProductModal = ({ idCamera, onCloseButtonClick }: AddProductModalProps)
           <div className="basket-item basket-item--short">
             <div className="basket-item__img">
               <picture>
-                <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x}`} />
+                <source type="image/webp" srcSet={`/${previewImgWebp}, /${previewImgWebp2x}`} />
                 <img src={previewImg} srcSet={previewImg2x} width="140" height="120" alt={name} />
               </picture>
             </div>

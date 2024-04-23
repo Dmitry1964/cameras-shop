@@ -8,9 +8,10 @@ import { useRef} from 'react';
 
 type SimilatListProps = {
   similarList: TCamera[];
+  showAddItemModal: (id: number) => void;
 }
 
-const SimilarList = ({ similarList }: SimilatListProps): JSX.Element => {
+const SimilarList = ({ similarList, showAddItemModal }: SimilatListProps): JSX.Element => {
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -33,7 +34,7 @@ const SimilarList = ({ similarList }: SimilatListProps): JSX.Element => {
           >
             {similarList.map((item) => (
               <SwiperSlide key={item.id}>
-                <ProductCard product={item}/>
+                <ProductCard product={item} showAddItemModal={showAddItemModal}/>
               </SwiperSlide>
             ))}
           </Swiper>

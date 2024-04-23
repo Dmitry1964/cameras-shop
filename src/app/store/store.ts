@@ -6,6 +6,7 @@ import cameraData from 'src/app/slices/camera-slice/camera-slice';
 import similarList from 'src/app/slices/similar-list-slice/similar-list-slice';
 import reviewsList from 'src/app/slices/reviews-list-slice/reviews-list-slice';
 import userReview from 'src/app/slices/user-review-slice/user-review-slice';
+import showAddModal from 'src/app/slices/add-modal-slice/add-modal-slice';
 
 
 const api = createAPI();
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   similarList,
   reviewsList,
   userReview,
+  showAddModal,
 });
 
 export const store = configureStore({

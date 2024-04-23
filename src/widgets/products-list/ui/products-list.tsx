@@ -3,7 +3,7 @@ import { ProductCard } from 'src/widgets/product-card';
 
 type ProductsListProps = {
   camerasList: TCamera[];
-  showAddItemModal: (param: boolean, id: number) => void;
+  showAddItemModal: (id: number) => void;
 }
 
 const ProductsList = ({camerasList, showAddItemModal} : ProductsListProps): JSX.Element => (

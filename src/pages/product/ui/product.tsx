@@ -10,6 +10,8 @@ import ReviewModal from 'src/features/review-modal/ui/review-modal';
 import { ReviewSuccess } from 'src/features/review-success';
 import { ReviewsList } from 'src/widgets/reviews-list';
 import { SimilarList } from 'src/widgets/similar-list';
+import { closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
+import { AddProductModal } from 'src/features/add-product-modal';
 
 const Product = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -20,12 +22,24 @@ const Product = (): JSX.Element => {
   const reviewsList = useAppSelector((state) => state.reviewsList.reviewsList);
   const fetchReviewsStatus = useAppSelector((state) => state.reviewsList.status);
   const fetchUserReviewStatus = useAppSelector((state) => state.userReview.status);
+  const idCamera = useAppSelector((state) => state.showAddModal.idCamera);
+  const showAddModal = useAppSelector((state) => state.showAddModal.showModal);
   const param = useParams();
 
 
   const id = param ? parseInt((param.idCamera as string), 10) : 1;
 
   const [showModal, setShowModal] = useState(false);
+
+  const showAddItemModal = (idCam: number) => {
+    dispatch(openAddModal(idCam));
+    addPositionFixed();
+  };
+
+  const closeAddItemModal = () => {
+    dispatch(closeAddModal());
+    removePositionFixed();
+  };
 
   const onAddReviewBtnClick = () => {
     setShowModal(true);
@@ -46,7 +60,7 @@ const Product = (): JSX.Element => {
     <>
       <main>
         <div className="page-content">
-          {fetchCameraStatus === FetchStatus.Fulfilled && <Breadcrumbs/>}
+          {fetchCameraStatus === FetchStatus.Fulfilled && <Breadcrumbs />}
           <div className="page-content__section">
             {fetchCameraStatus === FetchStatus.Pending && <Spinner />}
             {fetchCameraStatus === FetchStatus.Fulfilled &&
@@ -57,7 +71,7 @@ const Product = (): JSX.Element => {
             <div className="page-content__section">
               {fetchSimilarStatus === FetchStatus.Pending && <Spinner />}
               {fetchSimilarStatus === FetchStatus.Fulfilled &&
-                <SimilarList similarList={similarList} />}
+                <SimilarList similarList={similarList} showAddItemModal={showAddItemModal} />}
             </div>}
           <div className="page-content__section">
             {fetchReviewsStatus === FetchStatus.Pending && <Spinner />}
@@ -73,6 +87,8 @@ const Product = (): JSX.Element => {
       </a>
       <ReviewModal showModal={showModal} onCloseModal={onCloseModalBtnClick} id={id} />
       {fetchUserReviewStatus === FetchStatus.Fulfilled && <ReviewSuccess />}
+      {showAddModal && <AddProductModal idCamera={idCamera} camerasList={similarList} onCloseButtonClick={closeAddItemModal} />}
+
     </>
   );
 };

@@ -4,7 +4,7 @@ import { AppRoutes, TCamera } from 'src/shared';
 
 type ProductCardProps = {
   product: TCamera;
-  showAddItemModal?: (param: boolean, id: number) => void;
+  showAddItemModal: (id: number) => void;
 }
 
 const ProductCard = ({ product, showAddItemModal }: ProductCardProps): JSX.Element => {
@@ -25,7 +25,7 @@ const ProductCard = ({ product, showAddItemModal }: ProductCardProps): JSX.Eleme
       </div>
       <div className="product-card__buttons">
         <button
-          onClick={() => showAddItemModal(true, id)}
+          onClick={() => showAddItemModal(id)}
           className="btn btn--purple product-card__btn"
           type="button"
         >
