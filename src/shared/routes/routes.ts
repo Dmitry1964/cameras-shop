@@ -2,6 +2,7 @@ export enum AppRoutes {
   Catalog = '/',
   Camera = 'camera',
   Basket = 'basket',
+  PageNotFound = '*',
 }
 
 export enum FetchRoutes {
