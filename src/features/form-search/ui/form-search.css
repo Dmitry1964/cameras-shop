@@ -1,0 +1,8 @@
+.form-search__select-list--open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.form-search__reset--open {
+  display: block;
+}

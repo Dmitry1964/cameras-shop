@@ -1,3 +1,5 @@
+import { TCamera } from "..";
+
 export const getArrNumbers = (num : number) => {
   const arr = [];
   for (let i = 1; i <= num; i++) {
@@ -15,3 +17,5 @@ export const removePositionFixed = () => {
 };
 
 export const getIndex = (arr: number[], item: number) : number => arr.indexOf(item);
+
+export const getSearchList = (list: TCamera[], searchString: string) => list.filter((item) => item.name.toLowerCase().includes(searchString.toLowerCase()));
