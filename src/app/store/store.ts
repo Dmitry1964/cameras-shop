@@ -7,6 +7,7 @@ import similarList from 'src/app/slices/similar-list-slice/similar-list-slice';
 import reviewsList from 'src/app/slices/reviews-list-slice/reviews-list-slice';
 import userReview from 'src/app/slices/user-review-slice/user-review-slice';
 import showAddModal from 'src/app/slices/add-modal-slice/add-modal-slice';
+import sortFilterOptions from 'src/app/slices/sort-filter-slice/sort-filter-slice';
 
 
 const api = createAPI();
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   reviewsList,
   userReview,
   showAddModal,
+  sortFilterOptions,
 });
 
 export const store = configureStore({

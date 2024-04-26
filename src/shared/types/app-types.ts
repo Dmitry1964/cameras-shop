@@ -69,3 +69,18 @@ export enum FetchStatus {
   Rejected = 'error'
 }
 
+export enum SortedOptions {
+  Price = 'sortPrice',
+  Popular = 'sortPopular',
+  SortUp = 'sortUp',
+  SortDown = 'sortDown',
+}
+
+export type TSortFilter = {
+  sortPricePopular: SortedOptions;
+  sortUpDown: SortedOptions;
+  filterCategory: ProductCategory | string;
+  filterType: ProductType | string;
+  filterLevel: ProductLevel | string;
+}
+
