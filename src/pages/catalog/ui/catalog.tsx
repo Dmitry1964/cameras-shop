@@ -26,6 +26,7 @@ const Catalog = (): JSX.Element => {
   const promoList = useAppSelector((state) => state.promoList.promoList);
   const showAddModal = useAppSelector((state) => state.showAddModal.showModal);
   const idCamera = useAppSelector((state) => state.showAddModal.idCamera);
+
   const {pathname} = useLocation();
 
   const [currentList, setCurrentList] = useState<CurrentList>({start: 0, end: TOTAL_CARD});

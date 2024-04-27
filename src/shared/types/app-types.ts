@@ -52,8 +52,8 @@ export enum ProductType {
 }
 
 export enum ProductCategory {
-  Video = 'Видеокамера',
   Photo = 'Фотокамера',
+  Video = 'Видеокамера',
 }
 
 export enum ProductLevel {
@@ -80,7 +80,7 @@ export type TSortFilter = {
   sortPricePopular: SortedOptions;
   sortUpDown: SortedOptions;
   filterCategory: ProductCategory | string;
-  filterType: ProductType | string;
-  filterLevel: ProductLevel | string;
+  filterType: ProductType[];
+  filterLevel: ProductLevel[];
 }
 

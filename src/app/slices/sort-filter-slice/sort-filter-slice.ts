@@ -6,30 +6,39 @@ const initialState: TSortFilter = {
   sortPricePopular: SortedOptions.Price,
   sortUpDown: SortedOptions.SortUp,
   filterCategory: '',
-  filterLevel: '',
-  filterType: ''
+  filterLevel: [],
+  filterType: []
 };
 
 const SortFilterSlice = createSlice({
   name: 'sortFilterOptions',
   initialState,
   reducers: {
-    filterCategory: (state, action: PayloadAction<ProductCategory | string>) => {
+    selectCategory: (state, action: PayloadAction<ProductCategory | string>) => {
       state.filterCategory = action.payload;
     },
-    filterLevel: (state, action: PayloadAction<ProductLevel | string>) => {
-      state.filterLevel = action.payload;
+    addLevel: (state, action: PayloadAction<ProductLevel>) => {
+      state.filterLevel.push(action.payload);
     },
-    flterType: (state, action: PayloadAction<ProductType | string>) => {
-      state.filterType = action.payload;
+    removeLevel: (state, action: PayloadAction<ProductLevel>) => {
+      state.filterLevel = state.filterLevel.filter((item) => item.toLowerCase() !== action.payload.toLowerCase());
     },
-    filterReset: (state) => {
+    addType: (state, action: PayloadAction<ProductType>) => {
+      state.filterType.push(action.payload);
+    },
+    removeType: (state, action: PayloadAction<ProductType>) => {
+      state.filterType = state.filterType.filter((item) => item.toLowerCase() !== action.payload.toLowerCase());
+    },
+    categoryReset: (state) => {
       state.filterCategory = '';
-      state.filterLevel = '';
-      state.filterType = '';
+    },
+    filtersReset: (state) => {
+      state.filterCategory = '';
+      state.filterType = [];
+      state.filterLevel = [];
     }
   }
 });
 
-export const {filterCategory, filterLevel, flterType, filterReset} = SortFilterSlice.actions;
+export const {selectCategory, addLevel, removeLevel, addType, removeType, categoryReset, filtersReset} = SortFilterSlice.actions;
 export default SortFilterSlice.reducer;
