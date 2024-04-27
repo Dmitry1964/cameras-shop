@@ -18,3 +18,5 @@ export const DEFAULT_END = 3;
 
 export const OPTIONS = 'options';
 export const DESCRIPTION = 'description';
+export const SORT_PRICE_POPULAR = 'sortPricePopular';
+export const SORT_UP_DOWN = 'sortUpDown';

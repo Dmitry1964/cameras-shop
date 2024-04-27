@@ -77,8 +77,8 @@ export enum SortedOptions {
 }
 
 export type TSortFilter = {
-  sortPricePopular: SortedOptions;
-  sortUpDown: SortedOptions;
+  sortPricePopular: SortedOptions | string;
+  sortUpDown: SortedOptions | string;
   filterCategory: ProductCategory | string;
   filterType: ProductType[];
   filterLevel: ProductLevel[];

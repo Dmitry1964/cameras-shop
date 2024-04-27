@@ -3,8 +3,8 @@ import { SortedOptions, TSortFilter } from 'src/shared';
 import { ProductCategory, ProductLevel, ProductType } from 'src/shared/types/app-types';
 
 const initialState: TSortFilter = {
-  sortPricePopular: SortedOptions.Price,
-  sortUpDown: SortedOptions.SortUp,
+  sortPricePopular: '',
+  sortUpDown: '',
   filterCategory: '',
   filterLevel: [],
   filterType: []
@@ -36,9 +36,31 @@ const SortFilterSlice = createSlice({
       state.filterCategory = '';
       state.filterType = [];
       state.filterLevel = [];
-    }
+    },
+    sortPricePopular: (state, action: PayloadAction<SortedOptions | string>) => {
+      state.sortPricePopular = action.payload;
+    },
+    // sortPopular: (state, action: PayloadAction<SortedOptions | string>) => {
+    //   state.sortPricePopular = action.payload;
+    // },
+    sortUpDown: (state, action: PayloadAction<SortedOptions | string>) => {
+      state.sortUpDown = action.payload;
+    },
+    // sortDown: (state, action: PayloadAction<SortedOptions | string>) => {
+    //   state.sortUpDown = action.payload;
+    // }
   }
 });
 
-export const {selectCategory, addLevel, removeLevel, addType, removeType, categoryReset, filtersReset} = SortFilterSlice.actions;
+export const {
+  selectCategory,
+  addLevel,
+  removeLevel,
+  addType,
+  removeType,
+  categoryReset,
+  filtersReset,
+  sortPricePopular,
+  sortUpDown
+} = SortFilterSlice.actions;
 export default SortFilterSlice.reducer;

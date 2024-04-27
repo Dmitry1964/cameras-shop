@@ -14,6 +14,8 @@ const CatalogFilter = (): JSX.Element => {
     }
     if (evt.target.name === ProductCategory.Video) {
       dispatch(selectCategory(ProductCategory.Video));
+      dispatch(removeType(ProductType.Analog));
+      dispatch(removeType(ProductType.Instant));
     }
   };
 
@@ -105,6 +107,7 @@ const CatalogFilter = (): JSX.Element => {
                 type="checkbox"
                 name={ProductType.Analog}
                 disabled={filterOptions.filterCategory === ProductCategory.Video}
+                checked={filterOptions.filterCategory === ProductCategory.Video ? false : undefined}
               />
               <span className="custom-checkbox__icon"></span>
               <span className="custom-checkbox__label">Плёночная</span>
@@ -117,6 +120,7 @@ const CatalogFilter = (): JSX.Element => {
                 type="checkbox"
                 name={ProductType.Instant}
                 disabled={filterOptions.filterCategory === ProductCategory.Video}
+                checked={filterOptions.filterCategory === ProductCategory.Video ? false : undefined}
               />
               <span className="custom-checkbox__icon"></span>
               <span className="custom-checkbox__label">Моментальная</span>

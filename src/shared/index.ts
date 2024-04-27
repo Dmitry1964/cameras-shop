@@ -1,6 +1,6 @@
 import { AppRoutes, FetchRoutes } from './routes/routes';
 import { TCamera, FetchStatus, TPromo, TReview, TUserReview, TSortFilter, SortedOptions } from './types/app-types';
-import { BACKEND_URL, TIME_OUT, ApiActions, stars, TOTAL_CARD, DEFAULT_START, DEFAULT_END, OPTIONS, DESCRIPTION} from './constants/constants';
+import { BACKEND_URL, TIME_OUT, ApiActions, stars, TOTAL_CARD, DEFAULT_START, DEFAULT_END, OPTIONS, DESCRIPTION, SORT_PRICE_POPULAR, SORT_UP_DOWN} from './constants/constants';
 import { createAPI } from './api/api';
 import { getArrNumbers, getIndex, addPositionFixed, removePositionFixed, getSearchList } from './service/service';
 
@@ -24,6 +24,8 @@ export {
   removePositionFixed,
   getSearchList,
   SortedOptions,
+  SORT_PRICE_POPULAR,
+  SORT_UP_DOWN,
 };
 
 export type {TCamera, TPromo, TReview, TUserReview, TSortFilter};
