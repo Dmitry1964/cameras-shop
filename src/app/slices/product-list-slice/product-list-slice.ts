@@ -38,17 +38,17 @@ const productListSlice = createSlice({
     },
     sortList: (state, action: PayloadAction<TSortFilter>) => {
       if (action.payload.sortPricePopular === SortedOptions.Price) {
-        state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => b.price - a.price);
+        state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => a.price - b.price);
       }
       if (action.payload.sortPricePopular === SortedOptions.Popular) {
-        state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => b.rating - a.rating);
+        state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => a.rating - b.rating);
       }
       if (action.payload.sortUpDown === SortedOptions.SortDown) {
         if (action.payload.sortPricePopular === SortedOptions.Price) {
-          state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => a.price - b.price);
+          state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => b.price - a.price);
         }
         if (action.payload.sortPricePopular === SortedOptions.Popular) {
-          state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => a.rating - b.rating);
+          state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => b.rating - a.rating);
         }
       }
     }
