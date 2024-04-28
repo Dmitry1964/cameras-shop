@@ -13,6 +13,7 @@ import { TOTAL_CARD } from 'src/shared';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { AddProductModal } from 'src/features/add-product-modal';
 import { closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
+import { defaultFilterList } from 'src/app/slices/product-list-slice/product-list-slice';
 
 type CurrentList = {
   start: number;
@@ -23,6 +24,7 @@ const Catalog = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const fetchListStatus = useAppSelector((state) => state.productsList.status);
   const camerasList = useAppSelector((state) => state.productsList.cameras);
+  const filterList = useAppSelector((state) => state.productsList.filterList);
   const promoList = useAppSelector((state) => state.promoList.promoList);
   const showAddModal = useAppSelector((state) => state.showAddModal.showModal);
   const idCamera = useAppSelector((state) => state.showAddModal.idCamera);
@@ -60,6 +62,10 @@ const Catalog = (): JSX.Element => {
     setCurrentList({...currentList, start: TOTAL_CARD * (pageNumber - 1), end: TOTAL_CARD * pageNumber});
   }, [pageNumber]);
 
+  useEffect(() => {
+    dispatch(defaultFilterList(camerasList));
+  }, [dispatch, camerasList]);
+
   return (
     <main>
       <Banner promoList = {promoList} />
@@ -75,9 +81,9 @@ const Catalog = (): JSX.Element => {
               <div className="catalog__content">
                 <CatalogSort />
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
-                {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {camerasList.slice(currentList.start, currentList.end)} showAddItemModal={showAddItemModal}/>}
+                {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {filterList.slice(currentList.start, currentList.end)} showAddItemModal={showAddItemModal}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
-                {camerasList.length > TOTAL_CARD && <Pagination length = {camerasList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname} page={pageNumber}/>}
+                {camerasList.length > TOTAL_CARD && <Pagination length = {filterList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname} page={pageNumber}/>}
               </div>
             </div>
           </div>
