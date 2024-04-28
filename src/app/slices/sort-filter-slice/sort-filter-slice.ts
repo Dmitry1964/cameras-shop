@@ -40,15 +40,9 @@ const SortFilterSlice = createSlice({
     sortPricePopular: (state, action: PayloadAction<SortedOptions | string>) => {
       state.sortPricePopular = action.payload;
     },
-    // sortPopular: (state, action: PayloadAction<SortedOptions | string>) => {
-    //   state.sortPricePopular = action.payload;
-    // },
     sortUpDown: (state, action: PayloadAction<SortedOptions | string>) => {
       state.sortUpDown = action.payload;
     },
-    // sortDown: (state, action: PayloadAction<SortedOptions | string>) => {
-    //   state.sortUpDown = action.payload;
-    // }
   }
 });
 

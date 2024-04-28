@@ -1,10 +1,12 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import { sortList } from 'src/app/slices/product-list-slice/product-list-slice';
 import { sortPricePopular, sortUpDown } from 'src/app/slices/sort-filter-slice/sort-filter-slice';
 import { SORT_PRICE_POPULAR, SORT_UP_DOWN, SortedOptions } from 'src/shared';
-import { useAppDispatch } from 'src/shared/hooks/hooks';
+import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 
 const CatalogSort = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const filterOptions = useAppSelector((state) => state.sortFilterOptions);
   const onSortButtonClick = (evt: ChangeEvent<HTMLInputElement>) => {
     if (evt.target.name === SORT_PRICE_POPULAR) {
       const id = evt.target.id;
@@ -16,6 +18,10 @@ const CatalogSort = (): JSX.Element => {
       dispatch(sortUpDown(id));
     }
   };
+
+  useEffect(() => {
+    dispatch(sortList(filterOptions));
+  }, [dispatch, filterOptions]);
 
   return (
     <div className="catalog-sort">

@@ -13,7 +13,6 @@ import { TOTAL_CARD } from 'src/shared';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { AddProductModal } from 'src/features/add-product-modal';
 import { closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
-import { defaultFilterList } from 'src/app/slices/product-list-slice/product-list-slice';
 
 type CurrentList = {
   start: number;
@@ -62,10 +61,6 @@ const Catalog = (): JSX.Element => {
     setCurrentList({...currentList, start: TOTAL_CARD * (pageNumber - 1), end: TOTAL_CARD * pageNumber});
   }, [pageNumber]);
 
-  useEffect(() => {
-    dispatch(defaultFilterList(camerasList));
-  }, [dispatch, camerasList]);
-
   return (
     <main>
       <Banner promoList = {promoList} />
@@ -76,14 +71,14 @@ const Catalog = (): JSX.Element => {
             <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
             <div className="page-content__columns">
               <div className="catalog__aside">
-                <CatalogFilter />
+                <CatalogFilter camerasList={camerasList} />
               </div>
               <div className="catalog__content">
                 <CatalogSort />
                 {fetchListStatus === FetchStatus.Pending && <Spinner />}
                 {fetchListStatus === FetchStatus.Fulfilled && <ProductsList camerasList = {filterList.slice(currentList.start, currentList.end)} showAddItemModal={showAddItemModal}/>}
                 {fetchListStatus === FetchStatus.Rejected && <div>Ошибка загрузки</div>}
-                {camerasList.length > TOTAL_CARD && <Pagination length = {filterList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname} page={pageNumber}/>}
+                {filterList.length > TOTAL_CARD && <Pagination length = {filterList.length} getCurrentCameras = {getCurrentCameras} pathname = {pathname} page={pageNumber}/>}
               </div>
             </div>
           </div>

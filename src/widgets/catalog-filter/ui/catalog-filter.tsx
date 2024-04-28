@@ -1,10 +1,14 @@
 import { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
-import { ProductCategory, ProductLevel, ProductType } from 'src/shared/types/app-types';
+import { ProductCategory, ProductLevel, ProductType, TCamera } from 'src/shared/types/app-types';
 import { selectCategory, addLevel, removeLevel, addType, removeType, categoryReset, filtersReset } from 'src/app/slices/sort-filter-slice/sort-filter-slice';
-import { getFilterList } from 'src/app/slices/product-list-slice/product-list-slice';
+import { defaultFilterList, filterCategory, filterLevel, filterType } from 'src/app/slices/product-list-slice/product-list-slice';
 
-const CatalogFilter = (): JSX.Element => {
+type CatalogFilterProps = {
+  camerasList: TCamera[];
+}
+
+const CatalogFilter = ({camerasList}: CatalogFilterProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const filterOptions = useAppSelector((state) => state.sortFilterOptions);
 
@@ -43,8 +47,11 @@ const CatalogFilter = (): JSX.Element => {
   };
 
   useEffect(() => {
-    dispatch(getFilterList(filterOptions));
-  }, [dispatch, filterOptions]);
+    dispatch(defaultFilterList(camerasList));
+    dispatch(filterCategory(filterOptions));
+    dispatch(filterType(filterOptions));
+    dispatch(filterLevel(filterOptions));
+  }, [dispatch, filterOptions, camerasList]);
 
   return (
     <div className="catalog-filter">
