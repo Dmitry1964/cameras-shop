@@ -6,12 +6,16 @@ export type TCamerasListState = {
   cameras: TCamera[];
   filterList: TCamera[];
   status: FetchStatus;
+  minPriceList: number;
+  maxPriceList: number;
 }
 
 export const initialState: TCamerasListState = {
   cameras: [],
   filterList: [],
   status: FetchStatus.Idle,
+  minPriceList: 0,
+  maxPriceList: 0,
 };
 
 const productListSlice = createSlice({
@@ -34,6 +38,16 @@ const productListSlice = createSlice({
     filterLevel: (state, action: PayloadAction<TSortFilter>) => {
       if (action.payload.filterLevel.length > 0) {
         state.filterList = state.filterList.filter((item) => action.payload.filterLevel.includes(item.level));
+      }
+    },
+    getMinPriceList: (state) => {
+      if (state.filterList.length > 0) {
+        state.minPriceList = [...state.filterList].sort((a: TCamera, b: TCamera) => a.price - b.price)[0].price;
+      }
+    },
+    getMaxPriceList: (state) => {
+      if (state.filterList.length > 0) {
+        state.maxPriceList = [...state.filterList].sort((a: TCamera, b: TCamera) => b.price - a.price)[0].price;
       }
     },
     sortList: (state, action: PayloadAction<TSortFilter>) => {
@@ -71,5 +85,5 @@ const productListSlice = createSlice({
 });
 
 
-export const { filterCategory, filterType, filterLevel, defaultFilterList, sortList } = productListSlice.actions;
+export const { filterCategory, filterType, filterLevel, defaultFilterList, sortList, getMaxPriceList, getMinPriceList } = productListSlice.actions;
 export default productListSlice.reducer;

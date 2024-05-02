@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { ProductCategory, ProductLevel, ProductType, TCamera } from 'src/shared/types/app-types';
 import { selectCategory, addLevel, removeLevel, addType, removeType, categoryReset, filtersReset } from 'src/app/slices/sort-filter-slice/sort-filter-slice';
-import { defaultFilterList, filterCategory, filterLevel, filterType } from 'src/app/slices/product-list-slice/product-list-slice';
+import { defaultFilterList, filterCategory, filterLevel, filterType, getMaxPriceList, getMinPriceList } from 'src/app/slices/product-list-slice/product-list-slice';
 
 type CatalogFilterProps = {
   camerasList: TCamera[];
@@ -11,6 +11,8 @@ type CatalogFilterProps = {
 const CatalogFilter = ({camerasList}: CatalogFilterProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const filterOptions = useAppSelector((state) => state.sortFilterOptions);
+  const maxPriceList = useAppSelector((state) => state.productsList.maxPriceList);
+  const minPriceList = useAppSelector((state) => state.productsList.minPriceList);
 
   const onCheckCategoryClick = (evt: ChangeEvent<HTMLInputElement>) => {
     dispatch(categoryReset());
@@ -51,6 +53,8 @@ const CatalogFilter = ({camerasList}: CatalogFilterProps): JSX.Element => {
     dispatch(filterCategory(filterOptions));
     dispatch(filterType(filterOptions));
     dispatch(filterLevel(filterOptions));
+    dispatch(getMaxPriceList());
+    dispatch(getMinPriceList());
   }, [dispatch, filterOptions, camerasList]);
 
   return (
@@ -62,12 +66,12 @@ const CatalogFilter = ({camerasList}: CatalogFilterProps): JSX.Element => {
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>
-                <input type="number" name="price" placeholder="от" />
+                <input type="number" name="price" placeholder={`от ${minPriceList}`} />
               </label>
             </div>
             <div className="custom-input">
               <label>
-                <input type="number" name="priceUp" placeholder="до" />
+                <input type="number" name="priceUp" placeholder={`до ${maxPriceList}`} />
               </label>
             </div>
           </div>
