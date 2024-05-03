@@ -20,3 +20,5 @@ export const OPTIONS = 'options';
 export const DESCRIPTION = 'description';
 export const SORT_PRICE_POPULAR = 'sortPricePopular';
 export const SORT_UP_DOWN = 'sortUpDown';
+export const MIN_PRICE = 'minPrice';
+export const MAX_PRICE = 'maxPrice';

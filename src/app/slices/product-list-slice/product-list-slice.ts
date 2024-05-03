@@ -50,6 +50,13 @@ const productListSlice = createSlice({
         state.maxPriceList = [...state.filterList].sort((a: TCamera, b: TCamera) => b.price - a.price)[0].price;
       }
     },
+    filterMinPrice: (state, action: PayloadAction<number>) => {
+      state.filterList = state.filterList.filter((item) => item.price >= action.payload);
+    },
+    filterMaxPrice: (state, action: PayloadAction<number>) => {
+      state.filterList = state.filterList.filter((item) => item.price <= action.payload);
+    },
+
     sortList: (state, action: PayloadAction<TSortFilter>) => {
       if (action.payload.sortPricePopular === SortedOptions.Price) {
         state.filterList = [...state.filterList].sort((a: TCamera, b: TCamera) => a.price - b.price);
@@ -85,5 +92,15 @@ const productListSlice = createSlice({
 });
 
 
-export const { filterCategory, filterType, filterLevel, defaultFilterList, sortList, getMaxPriceList, getMinPriceList } = productListSlice.actions;
+export const {
+  filterCategory,
+  filterType,
+  filterLevel,
+  defaultFilterList,
+  sortList,
+  getMaxPriceList,
+  getMinPriceList,
+  filterMinPrice,
+  filterMaxPrice,
+} = productListSlice.actions;
 export default productListSlice.reducer;

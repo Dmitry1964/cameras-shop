@@ -7,7 +7,9 @@ const initialState: TSortFilter = {
   sortUpDown: '',
   filterCategory: '',
   filterLevel: [],
-  filterType: []
+  filterType: [],
+  userMinPrice: 0,
+  userMaxPrice: 0,
 };
 
 const SortFilterSlice = createSlice({
@@ -29,6 +31,13 @@ const SortFilterSlice = createSlice({
     removeType: (state, action: PayloadAction<ProductType>) => {
       state.filterType = state.filterType.filter((item) => item.toLowerCase() !== action.payload.toLowerCase());
     },
+    addMinPrice: (state, action: PayloadAction<number>) => {
+      state.userMinPrice = action.payload;
+    },
+    addMaxPrice: (state, action: PayloadAction<number>) => {
+      state.userMaxPrice = action.payload;
+    },
+
     categoryReset: (state) => {
       state.filterCategory = '';
     },
@@ -55,6 +64,8 @@ export const {
   categoryReset,
   filtersReset,
   sortPricePopular,
-  sortUpDown
+  sortUpDown,
+  addMaxPrice,
+  addMinPrice,
 } = SortFilterSlice.actions;
 export default SortFilterSlice.reducer;

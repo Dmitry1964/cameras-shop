@@ -82,5 +82,11 @@ export type TSortFilter = {
   filterCategory: ProductCategory | string;
   filterType: ProductType[];
   filterLevel: ProductLevel[];
+  userMinPrice: number;
+  userMaxPrice: number;
 }
 
+export type TUserPrices = {
+  minPrice: string;
+  maxPrice: string;
+}
