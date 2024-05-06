@@ -11,6 +11,7 @@ const Breadcrumbs = (): JSX.Element => {
     { path: AppRoutes.Catalog, breadcrumb: 'Каталог' },
     { path: AppRoutes.Camera, breadcrumb: 'Камера' },
     { path: `${AppRoutes.Camera}/:idCamera`, breadcrumb: `${camera.name}` },
+    { path: AppRoutes.Basket, breadcrumb: 'Корзина' },
   ];
   const breadcrumbs = useBreadcrumbs(routes);
 

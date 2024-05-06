@@ -6,7 +6,7 @@ import { FetchStatus, addPositionFixed, removePositionFixed } from 'src/shared';
 import { useAppDispatch, useAppSelector } from 'src/shared/hooks/hooks';
 import { Breadcrumbs } from 'src/widgets/breadcrumbs/ui';
 import { Camera } from 'src/widgets/camera';
-import ReviewModal from 'src/features/review-modal/ui/review-modal';
+import {ReviewModal} from 'src/features/review-modal/';
 import { ReviewSuccess } from 'src/features/review-success';
 import { ReviewsList } from 'src/widgets/reviews-list';
 import { SimilarList } from 'src/widgets/similar-list';

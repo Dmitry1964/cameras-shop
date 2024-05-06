@@ -13,6 +13,7 @@ import { TOTAL_CARD } from 'src/shared';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { AddProductModal } from 'src/features/add-product-modal';
 import { closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
+import { AddProductModalSucces } from 'src/features/add-product-success-modal';
 
 type CurrentList = {
   start: number;
@@ -85,6 +86,7 @@ const Catalog = (): JSX.Element => {
         </section>
       </div>
       {showAddModal && <AddProductModal idCamera={idCamera} camerasList={camerasList} onCloseButtonClick={closeAddItemModal} />}
+      {/* <AddProductModalSucces /> */}
     </main>
   );
 };

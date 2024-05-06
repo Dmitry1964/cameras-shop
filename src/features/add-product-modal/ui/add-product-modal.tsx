@@ -13,7 +13,7 @@ const AddProductModal = ({ idCamera, onCloseButtonClick, camerasList }: AddProdu
   const { previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, vendorCode, level, category, price, type, } = currentCamera as TCamera;
 
   useEffect(() => {
-    const closeAddItemModal = (evt : {keyCode : number}) => {
+    const closeAddItemModal = (evt: { keyCode: number }) => {
       if (evt.keyCode === 27) {
         onCloseButtonClick();
       }
@@ -25,7 +25,7 @@ const AddProductModal = ({ idCamera, onCloseButtonClick, camerasList }: AddProdu
   }, [onCloseButtonClick]);
 
   useEffect(() => {
-    const closeAddItemModal = (evt :globalThis.MouseEvent) => {
+    const closeAddItemModal = (evt: globalThis.MouseEvent) => {
       if (evt.target === modalOverlay.current) {
         onCloseButtonClick();
       }
@@ -61,7 +61,10 @@ const AddProductModal = ({ idCamera, onCloseButtonClick, camerasList }: AddProdu
             </div>
           </div>
           <div className="modal__buttons">
-            <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
+            <button
+              className="btn btn--purple modal__btn modal__btn--fit-width"
+              type="button"
+            >
               <svg width="24" height="16" aria-hidden="true">
                 <use xlinkHref="#icon-add-basket"></use>
               </svg>Добавить в корзину

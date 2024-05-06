@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Basket } from 'src/pages/basket';
 import { Catalog } from 'src/pages/catalog';
 import { Layout } from 'src/pages/layout';
 import { PageNotFound } from 'src/pages/page-not-found';
@@ -21,9 +22,13 @@ const App = (): JSX.Element => {
           element: <Product />
         },
         {
+          path: AppRoutes.Basket,
+          element: <Basket />
+        },
+        {
           path: AppRoutes.PageNotFound,
           element: <PageNotFound />
-        }
+        },
       ]
     }
   ]);
