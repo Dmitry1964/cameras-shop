@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
+import { openAddBasketModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
+import { addCameraBasket } from 'src/app/slices/basket-slice/baskt-slice';
 import { TCamera } from 'src/shared';
+import { useAppDispatch } from 'src/shared/hooks/hooks';
 
 type AddProductModalProps = {
   idCamera: number;
@@ -8,9 +11,17 @@ type AddProductModalProps = {
 }
 
 const AddProductModal = ({ idCamera, onCloseButtonClick, camerasList }: AddProductModalProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const modalOverlay = useRef(null);
   const currentCamera = camerasList.find((item) => item.id === idCamera);
   const { previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, vendorCode, level, category, price, type, } = currentCamera as TCamera;
+  const onAddProductBasketClick = () => {
+    if (currentCamera) {
+      dispatch(addCameraBasket(currentCamera));
+    }
+    dispatch(openAddBasketModal());
+    onCloseButtonClick();
+  };
 
   useEffect(() => {
     const closeAddItemModal = (evt: { keyCode: number }) => {
@@ -62,6 +73,7 @@ const AddProductModal = ({ idCamera, onCloseButtonClick, camerasList }: AddProdu
           </div>
           <div className="modal__buttons">
             <button
+              onClick={onAddProductBasketClick}
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
             >

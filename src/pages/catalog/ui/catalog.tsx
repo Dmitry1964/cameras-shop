@@ -12,8 +12,8 @@ import { ProductsList } from 'src/widgets/products-list';
 import { TOTAL_CARD } from 'src/shared';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { AddProductModal } from 'src/features/add-product-modal';
-import { closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
-import { AddProductModalSucces } from 'src/features/add-product-success-modal';
+import { closeAddBasket, closeAddModal, openAddModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
+import { AddProductModalSuccess } from 'src/features/add-product-success-modal';
 
 type CurrentList = {
   start: number;
@@ -27,6 +27,7 @@ const Catalog = (): JSX.Element => {
   const filterList = useAppSelector((state) => state.productsList.filterList);
   const promoList = useAppSelector((state) => state.promoList.promoList);
   const showAddModal = useAppSelector((state) => state.showAddModal.showModal);
+  const showAddBasketModal = useAppSelector((state) => state.showAddModal.showAddBasket);
   const idCamera = useAppSelector((state) => state.showAddModal.idCamera);
 
   const {pathname} = useLocation();
@@ -48,6 +49,10 @@ const Catalog = (): JSX.Element => {
     dispatch(closeAddModal());
     removePositionFixed();
   };
+
+  const closeAddBasketSuccess = () => {
+    dispatch(closeAddBasket());
+  }
 
   useEffect(() => {
     if(fetchListStatus === FetchStatus.Idle) {
@@ -86,7 +91,7 @@ const Catalog = (): JSX.Element => {
         </section>
       </div>
       {showAddModal && <AddProductModal idCamera={idCamera} camerasList={camerasList} onCloseButtonClick={closeAddItemModal} />}
-      {/* <AddProductModalSucces /> */}
+      {showAddBasketModal && <AddProductModalSuccess closeAddBasketSuccess={closeAddBasketSuccess} />}
     </main>
   );
 };

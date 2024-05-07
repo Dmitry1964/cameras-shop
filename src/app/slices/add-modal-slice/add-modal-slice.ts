@@ -4,11 +4,13 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 type AddModalState = {
   idCamera: number;
   showModal: boolean;
+  showAddBasket: boolean;
 };
 
 const initialState : AddModalState = {
   idCamera: 1,
   showModal: false,
+  showAddBasket: false,
 };
 
 const addModalSlice = createSlice({
@@ -22,9 +24,16 @@ const addModalSlice = createSlice({
 
     closeAddModal: (state) => {
       state.showModal = false;
+    },
+
+    openAddBasketModal: (state) => {
+      state.showAddBasket = true;
+    },
+    closeAddBasket: (state) => {
+      state.showAddBasket = false;
     }
   }
 });
 
-export const {openAddModal, closeAddModal} = addModalSlice.actions;
+export const {openAddModal, closeAddModal, openAddBasketModal, closeAddBasket} = addModalSlice.actions;
 export default addModalSlice.reducer;
