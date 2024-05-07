@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoutes } from 'src/shared';
+import { AppRoutes, addPositionFixed, removePositionFixed } from 'src/shared';
+import { useAppSelector } from 'src/shared/hooks/hooks';
 
 type AddProductModalSuccessProps = {
   closeAddBasketSuccess: () => void;
@@ -8,10 +9,18 @@ type AddProductModalSuccessProps = {
 
 const AddProductModalSuccess = ({ closeAddBasketSuccess }: AddProductModalSuccessProps) => {
   const modalOverlay = useRef(null);
+  const showAddBasketStatus = useAppSelector((state) => state.showAddModal.showAddBasket);
+  if (showAddBasketStatus) {
+    addPositionFixed();
+  }
+
+  const onLinkGoBasketClic = () => {
+    closeAddBasketSuccess();
+    removePositionFixed();
+  }
 
   useEffect(() => {
-
-    const onEscKeyDown = (evt: {keyCode: number}) => {
+    const onEscKeyDown = (evt: { keyCode: number }) => {
       if (evt.keyCode === 27) {
         closeAddBasketSuccess();
       }
@@ -51,6 +60,7 @@ const AddProductModalSuccess = ({ closeAddBasketSuccess }: AddProductModalSucces
               Продолжить покупки
             </Link>
             <Link
+              onClick={onLinkGoBasketClic}
               className="btn btn--purple modal__btn modal__btn--fit-width"
               to={AppRoutes.Basket}
             >

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { openAddBasketModal } from 'src/app/slices/add-modal-slice/add-modal-slice';
 import { addCameraBasket } from 'src/app/slices/basket-slice/baskt-slice';
-import { TCamera } from 'src/shared';
+import { TCamera} from 'src/shared';
 import { useAppDispatch } from 'src/shared/hooks/hooks';
 
 type AddProductModalProps = {

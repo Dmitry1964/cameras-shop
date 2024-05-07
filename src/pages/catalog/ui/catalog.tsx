@@ -52,6 +52,7 @@ const Catalog = (): JSX.Element => {
 
   const closeAddBasketSuccess = () => {
     dispatch(closeAddBasket());
+    removePositionFixed();
   }
 
   useEffect(() => {

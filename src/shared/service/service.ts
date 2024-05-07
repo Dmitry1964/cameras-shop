@@ -1,4 +1,5 @@
-import { TCamera } from "..";
+
+import { TCamera } from '../types/app-types';
 
 export const getArrNumbers = (num : number) => {
   const arr = [];
